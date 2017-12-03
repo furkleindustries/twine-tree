@@ -1,0 +1,28 @@
+{
+  "name": "twine-tree",
+  "version": "0.0.1",
+  "description": "Formal grammars and generated parsers for an abstract Twine interface.",
+  "scripts": {
+    "build": "pegjs --format es -o HtmlParser.js html.pegjs && pegjs --format es -o SugarParser.js sugar.pegjs && pegjs --format es -o GatelyParser.js gately.pegjs && pegjs --format es -o HarloweParser.js harlowe.pegjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/furkleindustries/twine-tree.git"
+  },
+  "keywords": [
+    "ast",
+    "pegjs",
+    "parser",
+    "twine",
+    "tree"
+  ],
+  "author": "furkle",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/furkleindustries/twine-tree/issues"
+  },
+  "homepage": "https://github.com/furkleindustries/twine-tree#readme",
+  "devDependencies": {
+    "pegjs": "^0.10.0"
+  }
+}
