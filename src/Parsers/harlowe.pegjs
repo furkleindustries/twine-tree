@@ -26,7 +26,7 @@ string = doubleQuote text:$doubleQuoteCharacter* doubleQuote
 {
   const node = {
     type: 'string',
-    subtype: 'singleQuote',
+    subtype: 'doubleQuote',
     value: text,
   };
 
@@ -39,7 +39,7 @@ string = doubleQuote text:$doubleQuoteCharacter* doubleQuote
 {
   const node = {
     type: 'string',
-    subtype: 'doubleQuote',
+    subtype: 'singleQuote',
     value: text,
   };
 
@@ -97,7 +97,7 @@ unescaped = [\x20-\x21\x23-\x5B\x5D-\u10FFFF]
 escapeCharacter = "\\"
 HEXDIG = [0-9a-f]i
 
-invokeNameChar = [^\n\r\t <>/$,=|]
+invokeNameChar = [^\n\r\t <>/$,=|:]
 
 linkLiteral
   = linkOpen
@@ -379,8 +379,8 @@ elemOpen = elemOpenChar elemTag ws* elemAttr* elemCloseChar
 elemContents = allGlobalTypes*
 elemClose = elemOpenChar '/' elemTag ws* elemCloseChar
 
-invokeOpen 'invocationOpen' = '<<'
-invokeClose 'invocationClose' = '>>'
+invokeOpen 'invocationOpen' = '('
+invokeClose 'invocationClose' = ')'
 
 invokeName = $invokeNameChar+
 
@@ -399,8 +399,250 @@ variable = variableOpen varName:$invokeNameChar+
   return node;
 }
 
-arg "argument"
-  = arg:(invocation / string / number / variable / bareString) (ws* comma ws* / ws+)?
+reservedWord
+  = additionAndConcatenationWord / 
+    subtractionWord /
+    multiplicationWord /
+    divisionWord /
+    moduloWord /
+    assignmentWord /
+    assignmentAdderWord /
+    assignmentSubtractorWord /
+    assignmentMultipilerWord /
+    assignmentDividerWord /
+    assignmentModuloWord /
+    lastReferencedVariableWord /
+    naiveEqualityWord /
+    naiveNonEqualityWord /
+    exactEqualityWord /
+    exactNonEqualityWord
+
+additionAndConcatenationWord = source:('plus' / '+') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'additionAndConcatenationWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+subtractionWord = source:('minus' / '-') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'subtractionWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+multiplicationWord = source:('times' / '*') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'multiplicationWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+divisionWord = source:('dividedby' / 'divided-by' / '/') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'divisionWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+moduloWord = source:('modulo' / '%') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'moduloWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+assignmentWord = source:('=' / 'to') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'assignmentWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+assignmentAdderWord = source:('plusequals' / 'plus-equals' / '+=') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'assignmentAdderWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+assignmentSubtractorWord = source:('minusequals' / 'minus-equals' / '-=') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'assignmentSubtractorWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+assignmentMultipilerWord = source:('timesequals' / 'times-equals' / '*=') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'assignmentMultipilerWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+assignmentDividerWord = source:('divideequals' / 'divide-equals' / '/=') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'assignmentDividerWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+assignmentModuloWord = source:('moduloequals' / 'modulo-equals' / '%=') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'assignmentModuloWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+lastReferencedVariableWord = source:('it') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'lastReferencedVariableWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+naiveEqualityWord = source:('eq' / '==') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'naiveEqualityWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+naiveNonEqualityWord = source:('neq' / '!=') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'naiveNonEqualityWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+exactEqualityWord = source:('is' / '===') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'exactEqualityWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+exactNonEqualityWord = source:('isnot' / 'is-not' / '!==') {
+  const node = {
+    type: 'reservedWord',
+    subtype: 'exactNonEqualityWord',
+    source,
+  };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
+}
+
+arg 'argument'
+  = arg:(invocation / string / number / variable / reservedWord) (ws* comma ws* / ws+)?
 {
   if (arg.type === 'invocation') {
     return arg;
@@ -425,7 +667,7 @@ arg "argument"
 invocation = withBodyInvocation / withoutBodyInvocation
 
 withoutBodyInvocation
-  = invokeOpen invokeName:invokeName ws* args:arg* invokeClose
+  = invokeOpen invokeName:invokeName ':' ws* args:arg* invokeClose
 {
   const node = {
     type: 'invocation',
@@ -443,17 +685,31 @@ withoutBodyInvocation
 }
 
 withBodyInvocation
-  /* <<foo bar "baz", 'bux' 2>>whatever<</foo>>
-     * <<foo bar "baz", 'bux' 2>>     whatever      <<        / | end      foo      >>
-     */
-  = invoke:withoutBodyInvocation children:allGlobalTypes* invokeOpen ('/' / 'end') invokeName invokeClose
+  /* (foo: 'bar', "baz", 'bux', 2)[whatever]
+   * (foo: 'bar', "baz", 'bux', 2)
+   * [...children] */
+  = invoke:withoutBodyInvocation ws*
+    body:(hookOpen children:allGlobalTypes* hookClose
+      {
+        const node = {
+          type:    'invocationBody',
+          subtype: 'hook',
+          children,
+        };
+
+        if (options.location === true) {
+          node.location = location();
+        }
+
+        return node;
+      })
 {
   const node = {
     type: 'invocation',
     subtype: 'withBody',
     functionName: invoke.name,
     arguments: invoke.arguments,
-    children,
+    children: [ body, ],
   };
 
   if (options.location === true) {
@@ -463,6 +719,9 @@ withBodyInvocation
   return node;
 }
 
-text = characters:$(!(invokeOpen / linkOpen / elemOpenChar ('/' / elemKeyChar) / variableOpen) any)+ {
+hookOpen  = '['
+hookClose = ']'
+
+text = characters:$(!(invokeOpen / linkOpen / elemOpenChar ('/' / elemKeyChar) / variableOpen / hookOpen / hookClose) any)+ {
   return characters;
 }

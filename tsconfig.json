@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "outDir": "./tsdist/",
+        "lib": [
+            "esnext"
+        ],
+
+        "jsx": "preserve",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "target": "esnext",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "strictNullChecks": true
+    },
+
+    "include": [
+        "./src/**/*"
+    ]
+}

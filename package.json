@@ -1,9 +1,15 @@
 {
   "name": "twine-tree",
+  "main": "dist/index.js",
   "version": "0.0.1",
   "description": "Formal grammars and generated parsers for an abstract Twine interface.",
   "scripts": {
-    "build": "pegjs --format es -o HtmlParser.js html.pegjs && pegjs --format es -o SugarParser.js sugar.pegjs && pegjs --format es -o GatelyParser.js gately.pegjs && pegjs --format es -o HarloweParser.js harlowe.pegjs"
+    "build": "webpack",
+    "build-parsers": "pegjs --format es -o src/Parsers/GatelyParser.js src/Parsers/gately.pegjs && pegjs --format es -o src/Parsers/HarloweParser.js src/Parsers/harlowe.pegjs && pegjs --format es -o src/Parsers/HtmlParser.js src/Parsers/html.pegjs && pegjs --format es -o src/Parsers/SugarParser.js src/Parsers/sugar.pegjs",
+    "test": "jest",
+    "test-coverage": "jest --coverage",
+    "test-watch": "jest --watch",
+    "test-coverage-watch": "jest --watch --coverage"
   },
   "repository": {
     "type": "git",
@@ -23,6 +29,38 @@
   },
   "homepage": "https://github.com/furkleindustries/twine-tree#readme",
   "devDependencies": {
-    "pegjs": "^0.10.0"
+    "awesome-typescript-loader": "^3.4.1",
+    "babel": "^6.23.0",
+    "babel-env": "^2.4.1",
+    "babel-jest": "^21.2.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "jest": "^21.2.1",
+    "pegjs": "^0.10.0",
+    "ts-jest": "^21.2.4",
+    "typescript": "^2.6.2",
+    "webpack": "^3.9.1"
+  },
+  "dependencies": {
+    "@types/pegjs": "^0.10.0"
+  },
+  "jest": {
+    "mapCoverage": true,
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/*.test.js"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/*",
+      "/src/Parser/*Parser.js"
+    ]
   }
 }
