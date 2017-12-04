@@ -359,25 +359,62 @@ function peg$parse(input, options) {
   var peg$c68 = "<!--";
   var peg$c69 = peg$literalExpectation("<!--", false);
   var peg$c70 = function(elem) {
-    if (elem.tagName === 'tw-link') {
-      let passageName = '___ERROR_NO_PASSAGE-NAME_ATTRIBUTE';
+    const tagName = elem.tagName;
+  	if (tagName === 'tw-link') {
+      elem.passageName = '___ERROR_NO_PASSAGE-NAME_ATTRIBUTE';
       elem.type = 'link';
       elem.subtype = 'linkElement';
       for (let ii = 0; ii < elem.attributes.length; ii += 1) {
         const attr = elem.attributes[ii];
         if (attr.key === 'passage-name') {
-          passageName = attr.value;
+          elem.passageName = attr.value;
           break;
         }
       }
-        
-      elem.passageName = passageName;
-    }
+    } else if (tagName === 'tw-invocation') {
+      elem.type = 'invocation';
+      elem.subtype = 'invocationElement';
+      elem.arguments = elem.children.filter((child) => {
+        return child.tagName === 'tw-argument';
+      });
 
-    if (options.location) {
-      elem.location = location();
+      elem.children = elem.children.filter((child) => {
+        return child.tagName !== 'tw-argument';
+      });
+    } else if (tagName === 'tw-invocation-body') {
+      elem.type = 'invocationBody';
+      elem.subtype = 'invocationBodyElement';
+    } else if (elem.tagName === 'tw-number') {
+      elem.type = 'number';
+      elem.subtype = 'numberElement';
+      elem.value = elem.children[0];
+      elem.children = [];
+    } else if (tagName === 'tw-string') {
+      elem.type = 'string';
+      elem.subtype = 'stringElement';
+      elem.value = elem.children[0];
+      elem.children = [];
+    } else if (elem.tagName === 'tw-reserved-word') {
+      elem.type = 'reservedWord';
+      elem.subtype = '___ERROR_NO_DATA-SUBTYPE_ATTRIBUTE';
+      for (let ii = 0; ii < elem.attributes.length; ii += 1) {
+        const attr = elem.attributes[ii];
+        if (attr.key === 'data-subtype') {
+          elem.subtype = attr.value;
+          break;
+        }
+      }
+
+      elem.source = '___ERROR_NO_DATA-SOURCE_ATTRIBUTE';
+      for (let ii = 0; ii < elem.attributes.length; ii += 1) {
+        const attr = elem.attributes[ii];
+        if (attr.key === 'data-source') {
+          elem.source = attr.value;
+          break;
+        }
+      }
     }
-    
+      
     return elem;
   };
   var peg$c71 = "<script";
@@ -446,15 +483,13 @@ function peg$parse(input, options) {
   };
   var peg$c89 = peg$otherExpectation("voidElement");
   var peg$c90 = function(tagName, attrs) {
-    if (options.checkVoidElements === true) { 
-      if (typeof voidElements !== 'object' || !voidElements) {
-        throw new Error('The options.parseCss option was true but the ' +
-                        'css.parse dependency was not present.');
-      } else if (!voidElements[tagName.toLowerCase()]) {
-        const loc = location();
-        throw new Error('A single tag/void element was found at line ' +
-                        `${loc.start.line}, column ${loc.start.column}.`);
-      }
+    if (typeof options.voidElements === 'object' &&
+      options.voidElements &&
+      !options.voidElements[tagName.toLowerCase()])
+    {
+      const loc = location();
+      throw new Error('A invalid single tag/void element was found at line ' +
+                      `${loc.start.line}, column ${loc.start.column}.`);
     }
 
     return {
@@ -673,7 +708,7 @@ function peg$parse(input, options) {
   var peg$c173 = function(source) {
     const node = {
       type: 'reservedWord',
-      subtype: 'assignmentMultipilerWord',
+      subtype: 'assignmentMultiplierWord',
       source,
     };
 
@@ -807,19 +842,11 @@ function peg$parse(input, options) {
     return node;
   };
   var peg$c213 = peg$otherExpectation("argument");
-  var peg$c214 = function(arg) {
-    if (arg.type === 'invocation') {
-      return arg;
-    }
-
-    const argument = {
-      type: arg.type,
-      value: arg.value,
+  var peg$c214 = function(value) {
+    const arg = {
+      type: 'argument',
+      value,
     };
-      
-    if ('subtype' in arg) {
-      argument.subtype = arg.subtype;
-    }
 
     if (options.location === true) {
       options.location = location();
@@ -3146,7 +3173,7 @@ function peg$parse(input, options) {
                 if (s0 === peg$FAILED) {
                   s0 = peg$parseassignmentSubtractorWord();
                   if (s0 === peg$FAILED) {
-                    s0 = peg$parseassignmentMultipilerWord();
+                    s0 = peg$parseassignmentMultiplierWord();
                     if (s0 === peg$FAILED) {
                       s0 = peg$parseassignmentDividerWord();
                       if (s0 === peg$FAILED) {
@@ -3439,7 +3466,7 @@ function peg$parse(input, options) {
     return s0;
   }
 
-  function peg$parseassignmentMultipilerWord() {
+  function peg$parseassignmentMultiplierWord() {
     var s0, s1;
 
     s0 = peg$currPos;

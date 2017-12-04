@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   // Here the application starts executing
   // and webpack starts bundling
-  entry: path.resolve(__dirname, 'src/export.ts'), // string | object | array
+  entry: path.resolve(__dirname, 'src/exports.ts'), // string | object | array
 
   // options related to how webpack emits results
   output: {
@@ -15,7 +15,7 @@ module.exports = {
     filename: 'index.js', // string
 
     // the name of the exported library
-    library: 'TwineLinter', // string,
+    library: 'TwineTree', // string,
 
     libraryTarget: 'commonjs',
   },
@@ -49,6 +49,10 @@ module.exports = {
         },
       },
     ],
+  },
+
+  node: {
+    fs: 'empty',
   },
 
   performance: {

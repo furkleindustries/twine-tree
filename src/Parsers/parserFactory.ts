@@ -7,12 +7,10 @@ import {
 import {
   IParser,
 } from './IParser';
-import {
-  HarloweParser,
-  HtmlParser,
-  GatelyParser,
-  SugarParser,
-} from 'twine-tree';
+import * as GatelyParser  from './GatelyParser';
+import * as HarloweParser from './HarloweParser';
+import * as HtmlParser    from './HtmlParser';
+import * as SugarParser   from './SugarParser';
 
 const twineParserOpts = {
   checkVoidElements: true,

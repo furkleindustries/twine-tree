@@ -3,7 +3,7 @@ import {
 } from '../AbstractSyntaxTree/TAbstractSyntaxTree';
 
 export interface IParser {
-  parse(source: string): TAbstractSyntaxTree;
+  parse(source: string, options?: Object): TAbstractSyntaxTree;
 }
 
 export default IParser;

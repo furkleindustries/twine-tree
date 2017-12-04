@@ -5,3 +5,5 @@ import {
 export interface INumberSyntaxNode extends IAbstractSyntaxNode {
   value: number;
 }
+
+export default INumberSyntaxNode;

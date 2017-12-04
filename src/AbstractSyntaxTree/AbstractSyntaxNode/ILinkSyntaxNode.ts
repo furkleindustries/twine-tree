@@ -2,12 +2,11 @@ import {
   IAbstractSyntaxNode,
 } from './IAbstractSyntaxNode';
 import {
-  TAbstractSyntaxContent,
-} from '../TAbstractSyntaxContent';
+  IParentSyntaxNode,
+} from './IParentSyntaxNode';
 
-export interface ILinkSyntaxNode extends IAbstractSyntaxNode {
+export interface ILinkSyntaxNode extends IAbstractSyntaxNode, IParentSyntaxNode {
   passageName: string;
-  children: Array<TAbstractSyntaxContent>;
 }
 
 export default ILinkSyntaxNode;

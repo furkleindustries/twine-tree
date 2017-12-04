@@ -3,9 +3,10 @@ import {
 } from '../ILocation';
 
 export interface IAbstractSyntaxNode {
-  type:     string;
-  subtype?: string;
-  loc?:     ILocation;
+  type:        string;
+  subtype?:    string;
+  attributes?: Object;
+  location?:   ILocation;
 }
 
 export default IAbstractSyntaxNode;

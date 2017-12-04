@@ -1,20 +1,23 @@
 {
   "name": "twine-tree",
   "main": "dist/index.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Formal grammars and generated parsers for an abstract Twine interface.",
   "scripts": {
     "build": "webpack",
     "build-parsers": "pegjs --format es -o src/Parsers/GatelyParser.js src/Parsers/gately.pegjs && pegjs --format es -o src/Parsers/HarloweParser.js src/Parsers/harlowe.pegjs && pegjs --format es -o src/Parsers/HtmlParser.js src/Parsers/html.pegjs && pegjs --format es -o src/Parsers/SugarParser.js src/Parsers/sugar.pegjs",
+    "build-all": "npm run build-parsers && npm run build",
     "test": "jest",
     "test-coverage": "jest --coverage",
     "test-watch": "jest --watch",
     "test-coverage-watch": "jest --watch --coverage"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/furkleindustries/twine-tree.git"
   },
+
   "keywords": [
     "ast",
     "pegjs",
@@ -22,13 +25,14 @@
     "twine",
     "tree"
   ],
+
   "author": "furkle",
   "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/furkleindustries/twine-tree/issues"
-  },
+  "bugs": { "url": "https://github.com/furkleindustries/twine-tree/issues" },
   "homepage": "https://github.com/furkleindustries/twine-tree#readme",
   "devDependencies": {
+    "@types/esprima": "^4.0.1",
+    "@types/pegjs": "^0.10.0",
     "awesome-typescript-loader": "^3.4.1",
     "babel": "^6.23.0",
     "babel-env": "^2.4.1",
@@ -40,9 +44,11 @@
     "typescript": "^2.6.2",
     "webpack": "^3.9.1"
   },
+
   "dependencies": {
-    "@types/pegjs": "^0.10.0"
+    "esprima": "^4.0.0"
   },
+
   "jest": {
     "mapCoverage": true,
     "moduleFileExtensions": [
@@ -51,13 +57,13 @@
       "js",
       "jsx"
     ],
-    "testMatch": [
-      "<rootDir>/src/**/*.test.js"
-    ],
+
+    "testMatch": [ "<rootDir>/src/**/*.test.js" ],
     "transform": {
       "^.+\\.jsx?$": "babel-jest",
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
+
     "transformIgnorePatterns": [
       "/node_modules/*",
       "/src/Parser/*Parser.js"

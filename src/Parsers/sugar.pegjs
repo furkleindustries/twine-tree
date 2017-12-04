@@ -168,7 +168,14 @@ linkLiteral
     try {
       children = peg$parse(linkContents.slice(0, barIndex));
     } catch (e) {
-      console.log(e);
+      const thisLoc = location();
+      const errLoc = e.location;
+      const str =
+        `${e.message} \nAt line ` +
+        `${errLoc.start.line + thisLoc.start.line - 1}, ` +
+        `column ${offset + thisLoc.start.column + errLoc.start.column}.`;
+
+      throw new Error(str);
     }
     
     const node = {
@@ -233,25 +240,62 @@ commentClose = '-->'
 
 elem = elem:(script / style / doubleTagElement / singleTagElement)
 {
-  if (elem.tagName === 'tw-link') {
-    let passageName = '___ERROR_NO_PASSAGE-NAME_ATTRIBUTE';
+  const tagName = elem.tagName;
+	if (tagName === 'tw-link') {
+    elem.passageName = '___ERROR_NO_PASSAGE-NAME_ATTRIBUTE';
     elem.type = 'link';
     elem.subtype = 'linkElement';
     for (let ii = 0; ii < elem.attributes.length; ii += 1) {
       const attr = elem.attributes[ii];
       if (attr.key === 'passage-name') {
-        passageName = attr.value;
+        elem.passageName = attr.value;
         break;
       }
     }
-      
-    elem.passageName = passageName;
-  }
+  } else if (tagName === 'tw-invocation') {
+    elem.type = 'invocation';
+    elem.subtype = 'invocationElement';
+    elem.arguments = elem.children.filter((child) => {
+      return child.tagName === 'tw-argument';
+    });
 
-  if (options.location) {
-    elem.location = location();
+    elem.children = elem.children.filter((child) => {
+      return child.tagName !== 'tw-argument';
+    });
+  } else if (tagName === 'tw-invocation-body') {
+    elem.type = 'invocationBody';
+    elem.subtype = 'invocationBodyElement';
+  } else if (elem.tagName === 'tw-number') {
+    elem.type = 'number';
+    elem.subtype = 'numberElement';
+    elem.value = elem.children[0];
+    elem.children = [];
+  } else if (tagName === 'tw-string') {
+    elem.type = 'string';
+    elem.subtype = 'stringElement';
+    elem.value = elem.children[0];
+    elem.children = [];
+  } else if (elem.tagName === 'tw-reserved-word') {
+    elem.type = 'reservedWord';
+    elem.subtype = '___ERROR_NO_DATA-SUBTYPE_ATTRIBUTE';
+    for (let ii = 0; ii < elem.attributes.length; ii += 1) {
+      const attr = elem.attributes[ii];
+      if (attr.key === 'data-subtype') {
+        elem.subtype = attr.value;
+        break;
+      }
+    }
+
+    elem.source = '___ERROR_NO_DATA-SOURCE_ATTRIBUTE';
+    for (let ii = 0; ii < elem.attributes.length; ii += 1) {
+      const attr = elem.attributes[ii];
+      if (attr.key === 'data-source') {
+        elem.source = attr.value;
+        break;
+      }
+    }
   }
-  
+    
   return elem;
 }
    
@@ -269,16 +313,8 @@ script
     children: [ contents, ],
   };
 
-  if (options.parseJavascript === true) {
-    if (typeof esprima !== 'object' ||
-      !esprima ||
-      typeof esprima.parseModule !== 'function')
-    {
-      throw new Error('The options.parseJavascript option was true but the ' +
-                      'esprima.parseModule dependency was not present.');
-    }
-
-    node.children[0] = esprima.parseModule(contents);
+  if (options.javascriptParser === 'function') {
+    node.children[0] = options.javascriptParser(contents);
   }
 
   return node;
@@ -298,17 +334,15 @@ style
     children: [ contents, ],
   };
 
-  if (options.parseCss === true) {
-    if (typeof css !== 'object' ||
-      !css &&
-      typeof css.parse !== 'function')
-    {
-      throw new Error('The options.parseCss option was true but the ' +
-                      'css.parse dependency was not present.');
-    }
-    
-    node.children[0] = css.parse(contents);
+  if (options.cssParser === 'function') {
+    node.children[0] = options.cssParser(contents);
   }
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
 }
 
 scriptOrStyleAttrs
@@ -320,37 +354,47 @@ scriptOrStyleAttrs
 singleTagElement 'voidElement'
   = elemOpenChar tagName:elemTag ws* attrs:elemAttr* '/'? ws* elemCloseChar
 {
-  if (options.checkVoidElements === true) { 
-    if (typeof voidElements !== 'object' || !voidElements) {
-      throw new Error('The options.parseCss option was true but the ' +
-                      'css.parse dependency was not present.');
-    } else if (!voidElements[tagName.toLowerCase()]) {
-      const loc = location();
-      throw new Error('A single tag/void element was found at line ' +
-                      `${loc.start.line}, column ${loc.start.column}.`);
-    }
+  if (typeof options.voidElements === 'object' &&
+    options.voidElements &&
+    !voidElements[tagName.toLowerCase()])
+  {
+    const loc = location();
+    throw new Error('A single tag/void element was found at line ' +
+                    `${loc.start.line}, column ${loc.start.column}.`);
   }
 
-  return {
+  const node = {
     type: 'element',
     tagName,
     attributes: attrs,
     children: [],
   };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
 }
 
 doubleTagElement 'elementWithTwoTags'
-  /* <span></span> 
+  /* <span></span>
      *     <            span               foo="bar"          >                 whatever         </span>   
      */
   = elemOpenChar tagName:elemTag ws* attrs:elemAttr* ws* elemCloseChar children:elemContents elemClose
 {
-  return {
+  const node = {
     children,
     type: 'element',
     tagName,
     attributes: attrs,
   };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
 }
 
 elemOpenChar 'elementOpeningCharacter' = (!'<-' '<')
@@ -408,7 +452,7 @@ reservedWord
     assignmentWord /
     assignmentAdderWord /
     assignmentSubtractorWord /
-    assignmentMultipilerWord /
+    assignmentMultiplierWord /
     assignmentDividerWord /
     assignmentModuloWord /
     lastReferencedVariableWord /
@@ -529,10 +573,10 @@ assignmentSubtractorWord = source:('minusequals' / 'minus-equals' / '-=') {
   return node;
 }
 
-assignmentMultipilerWord = source:('timesequals' / 'times-equals' / '*=') {
+assignmentMultiplierWord = source:('timesequals' / 'times-equals' / '*=') {
   const node = {
     type: 'reservedWord',
-    subtype: 'assignmentMultipilerWord',
+    subtype: 'assignmentMultiplierWord',
     source,
   };
 
@@ -642,20 +686,13 @@ exactNonEqualityWord = source:('isnot' / 'is-not' / '!==') {
 }
 
 arg 'argument'
-  = arg:(invocation / string / number / variable / reservedWord / bareString) (ws* comma ws* / ws+)?
+  = value:(invocation / string / number / variable / reservedWord / bareString)
+    (ws* comma ws* / ws+)?
 {
-  if (arg.type === 'invocation') {
-    return arg;
-  }
-
-  const argument = {
-    type: arg.type,
-    value: arg.value,
+  const arg = {
+    type: 'argument',
+    value,
   };
-    
-  if ('subtype' in arg) {
-    argument.subtype = arg.subtype;
-  }
 
   if (options.location === true) {
     options.location = location();
