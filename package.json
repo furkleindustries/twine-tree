@@ -1,7 +1,7 @@
 {
   "name": "twine-tree",
   "main": "dist/index.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Formal grammars and generated parsers for an abstract Twine interface.",
   "scripts": {
     "build": "webpack",
@@ -12,12 +12,10 @@
     "test-watch": "jest --watch",
     "test-coverage-watch": "jest --watch --coverage"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/furkleindustries/twine-tree.git"
   },
-
   "keywords": [
     "ast",
     "pegjs",
@@ -25,14 +23,17 @@
     "twine",
     "tree"
   ],
-
   "author": "furkle",
   "license": "GPL-3.0",
-  "bugs": { "url": "https://github.com/furkleindustries/twine-tree/issues" },
+  "bugs": {
+    "url": "https://github.com/furkleindustries/twine-tree/issues"
+  },
   "homepage": "https://github.com/furkleindustries/twine-tree#readme",
   "devDependencies": {
+    "@types/css": "0.0.31",
     "@types/esprima": "^4.0.1",
     "@types/pegjs": "^0.10.0",
+    "@types/semver": "^5.4.0",
     "awesome-typescript-loader": "^3.4.1",
     "babel": "^6.23.0",
     "babel-env": "^2.4.1",
@@ -44,11 +45,10 @@
     "typescript": "^2.6.2",
     "webpack": "^3.9.1"
   },
-
   "dependencies": {
+    "css": "^2.2.1",
     "esprima": "^4.0.0"
   },
-
   "jest": {
     "mapCoverage": true,
     "moduleFileExtensions": [
@@ -57,13 +57,13 @@
       "js",
       "jsx"
     ],
-
-    "testMatch": [ "<rootDir>/src/**/*.test.js" ],
+    "testMatch": [
+      "<rootDir>/src/**/*.test.js"
+    ],
     "transform": {
       "^.+\\.jsx?$": "babel-jest",
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-
     "transformIgnorePatterns": [
       "/node_modules/*",
       "/src/Parser/*Parser.js"
