@@ -1,7 +1,7 @@
 {
   "name": "twine-tree",
   "main": "dist/index.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Formal grammars and generated parsers for an abstract Twine interface.",
   "scripts": {
     "build": "webpack",
