@@ -1,5 +1,5 @@
 import {
-  IFID,
+  IIFID,
 } from 'ifid';
 import {
   SemVer,
@@ -10,7 +10,7 @@ export interface IStory {
   startNode:      number;
   creator:        string;
   creatorVersion: SemVer;
-  ifid:           IFID;
+  ifid:           IIFID;
   format:         string;
   options:        Object;
   hidden:         boolean;
