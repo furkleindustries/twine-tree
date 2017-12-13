@@ -1,6 +1,6 @@
 import {
   IIFID,
-} from 'ifid';
+} from 'ifid/src/IFID/IIFID';
 import {
   SemVer,
 } from 'semver';
