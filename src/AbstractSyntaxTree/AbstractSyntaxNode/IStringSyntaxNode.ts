@@ -3,7 +3,7 @@ import {
 } from './IAbstractSyntaxNode';
 
 export interface IStringSyntaxNode extends IAbstractSyntaxNode {
-  subtype: 'single' | 'double' | 'grave';
+  subtype: 'singleQuote' | 'doubleQuote' | 'grave';
   value: string;
 }
 

@@ -78,14 +78,14 @@ strChar 'character' = escapeSequence / unescaped
 escapeSequence = escapeCharacter sequence:(
   doubleQuote /
   singleQuote /
-  "\\" /
-  "/" /
-  "b" { return '\b'; } /
-  "f" { return '\f'; } /
-  "n" { return '\n'; } /
-  "r" { return '\r'; } /
-  "t" { return '\t'; } /
-  "u" digits:$(HEXDIG HEXDIG HEXDIG HEXDIG)
+  '\\' /
+  '/' /
+  'b' { return '\b'; } /
+  'f' { return '\f'; } /
+  'n' { return '\n'; } /
+  'r' { return '\r'; } /
+  't' { return '\t'; } /
+  'u' digits:$(HEXDIG HEXDIG HEXDIG HEXDIG)
   {
     return String.fromCharCode(parseInt(digits, 16));
   })
@@ -94,7 +94,7 @@ escapeSequence = escapeCharacter sequence:(
 }
 
 unescaped = [\x20-\x21\x23-\x5B\x5D-\u10FFFF]
-escapeCharacter = "\\"
+escapeCharacter = '\\'
 HEXDIG = [0-9a-f]i
 
 invokeNameChar = [^\n\r\t <>/$,=|:]
@@ -278,7 +278,11 @@ elem = elem:(script / style / doubleTagElement / singleTagElement)
     });
   } else if (tagName === 'tw-invocation-body') {
     elem.type = 'invocationBody';
-    elem.subtype = 'invocationBodyElement';
+    const body = elem.children.filter((aa) => {
+      return aa.tagName === 'tw-invocation-body';
+    });
+
+    elem.subtype = body.length ? 'withBody' : 'withoutBody';
   } else if (elem.tagName === 'tw-number') {
     elem.type = 'number';
     elem.subtype = 'numberElement';
@@ -308,6 +312,8 @@ elem = elem:(script / style / doubleTagElement / singleTagElement)
         break;
       }
     }
+  } else if (tagName === 'tw-argument') {
+    elem.subtype = 'argumentElement';
   }
     
   return elem;
@@ -319,7 +325,7 @@ script
     '</script' ws* elemCloseChar
 {
   const node = {
-    type: 'element',
+    type: 'htmlElement',
     subtype: 'script',
     tagName: 'script',
     source: contents,
@@ -448,7 +454,7 @@ invokeClose 'invocationClose' = ')'
 
 invokeName = $invokeNameChar+
 
-variableOpen 'variableOpener' = "$"
+variableOpen 'variableOpener' = '$'
 variable = variableOpen varName:$invokeNameChar+
 {
   const node = {

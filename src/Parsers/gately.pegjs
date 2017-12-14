@@ -50,22 +50,6 @@ string = doubleQuote text:$doubleQuoteCharacter* doubleQuote
   return node;
 }
 
-bareString
-  = text:$invokeNameChar+
-{
-  const node = {
-    type: 'string',
-    subtype: 'bare',
-    value: text,
-  };
-
-  if (options.location === true) {
-    node.location = location();
-  }
-
-  return node;
-}
-
 doubleQuoteCharacter = !doubleQuote c:strChar {
   return c;
 }
@@ -78,14 +62,14 @@ strChar 'character' = escapeSequence / unescaped
 escapeSequence = escapeCharacter sequence:(
   doubleQuote /
   singleQuote /
-  "\\" /
-  "/" /
-  "b" { return '\b'; } /
-  "f" { return '\f'; } /
-  "n" { return '\n'; } /
-  "r" { return '\r'; } /
-  "t" { return '\t'; } /
-  "u" digits:$(HEXDIG HEXDIG HEXDIG HEXDIG)
+  escapeCharacter /
+  '/' /
+  'b' { return '\b'; } /
+  'f' { return '\f'; } /
+  'n' { return '\n'; } /
+  'r' { return '\r'; } /
+  't' { return '\t'; } /
+  'u' digits:$(HEXDIG HEXDIG HEXDIG HEXDIG)
   {
     return String.fromCharCode(parseInt(digits, 16));
   })
@@ -94,7 +78,7 @@ escapeSequence = escapeCharacter sequence:(
 }
 
 unescaped = [\x20-\x21\x23-\x5B\x5D-\u10FFFF]
-escapeCharacter = "\\"
+escapeCharacter = '\\'
 HEXDIG = [0-9a-f]i
 
 invokeNameChar = [^\n\r\t <>/$,=|:]
@@ -235,7 +219,7 @@ elem = elem:(script / style / doubleTagElement / singleTagElement)
 {
   const tagName = elem.tagName;
 	if (tagName === 'tw-link') {
-    elem.passageName = '___ERROR_NO_PASSAGE-NAME_ATTRIBUTE';
+    elem.passageName = 'tw-unknown-passage-name';
     elem.type = 'link';
     elem.subtype = 'linkElement';
     for (let ii = 0; ii < elem.attributes.length; ii += 1) {
@@ -244,6 +228,10 @@ elem = elem:(script / style / doubleTagElement / singleTagElement)
         elem.passageName = attr.value;
         break;
       }
+    }
+
+    if (elem.passageName === 'tw-unknown-passage-name') {
+      throw new Error('No passageName property was found on tw-link element.');
     }
   } else if (tagName === 'tw-invocation') {
     elem.type = 'invocation';
@@ -257,7 +245,11 @@ elem = elem:(script / style / doubleTagElement / singleTagElement)
     });
   } else if (tagName === 'tw-invocation-body') {
     elem.type = 'invocationBody';
-    elem.subtype = 'invocationBodyElement';
+    const body = elem.children.filter((aa) => {
+      return aa.tagName === 'tw-invocation-body';
+    });
+
+    elem.subtype = body.length ? 'withBody' : 'withoutBody';
   } else if (elem.tagName === 'tw-number') {
     elem.type = 'number';
     elem.subtype = 'numberElement';
@@ -270,7 +262,7 @@ elem = elem:(script / style / doubleTagElement / singleTagElement)
     elem.children = [];
   } else if (elem.tagName === 'tw-reserved-word') {
     elem.type = 'reservedWord';
-    elem.subtype = '___ERROR_NO_DATA-SUBTYPE_ATTRIBUTE';
+    elem.subtype = 'tw-unknown-subtype';
     for (let ii = 0; ii < elem.attributes.length; ii += 1) {
       const attr = elem.attributes[ii];
       if (attr.key === 'data-subtype') {
@@ -279,7 +271,11 @@ elem = elem:(script / style / doubleTagElement / singleTagElement)
       }
     }
 
-    elem.source = '___ERROR_NO_DATA-SOURCE_ATTRIBUTE';
+    if (elem.subtype === 'tw-unknown-subtype') {
+      throw new Error('Element without subtype.');
+    }
+
+    elem.source = 'tw-unknown-source';
     for (let ii = 0; ii < elem.attributes.length; ii += 1) {
       const attr = elem.attributes[ii];
       if (attr.key === 'data-source') {
@@ -287,6 +283,8 @@ elem = elem:(script / style / doubleTagElement / singleTagElement)
         break;
       }
     }
+  } else if (tagName === 'tw-argument') {
+    elem.subtype = 'argumentElement';
   }
     
   return elem;
@@ -298,7 +296,7 @@ script
     '</script' ws* elemCloseChar
 {
   const node = {
-    type: 'element',
+    type: 'htmlElement',
     subtype: 'script',
     tagName: 'script',
     source: contents,
@@ -306,16 +304,12 @@ script
     children: [ contents, ],
   };
 
-  if (options.parseJavascript === true) {
-    if (typeof esprima !== 'object' ||
-      !esprima ||
-      typeof esprima.parseModule !== 'function')
-    {
-      throw new Error('The options.parseJavascript option was true but the ' +
-                      'esprima.parseModule dependency was not present.');
-    }
+  if (options.location === true) {
+    node.location = location();
+  }
 
-    node.children[0] = esprima.parseModule(contents);
+  if (typeof options.javascriptParser === 'function') {
+    node.children[0] = options.javascriptParser(contents);
   }
 
   return node;
@@ -335,17 +329,15 @@ style
     children: [ contents, ],
   };
 
-  if (options.parseCss === true) {
-    if (typeof css !== 'object' ||
-      !css &&
-      typeof css.parse !== 'function')
-    {
-      throw new Error('The options.parseCss option was true but the ' +
-                      'css.parse dependency was not present.');
-    }
-    
-    node.children[0] = css.parse(contents);
+  if (options.location === true) {
+    node.location = location();
   }
+
+  if (typeof options.javascriptParser === 'function') {
+    node.children[0] = options.javascriptParser(contents);
+  }
+
+  return node;
 }
 
 scriptOrStyleAttrs
@@ -366,12 +358,18 @@ singleTagElement 'voidElement'
                     `${loc.start.line}, column ${loc.start.column}.`);
   }
 
-  return {
+  const node = {
     type: 'element',
     tagName,
     attributes: attrs,
     children: [],
   };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
 }
 
 doubleTagElement 'elementWithTwoTags'
@@ -380,12 +378,18 @@ doubleTagElement 'elementWithTwoTags'
      */
   = elemOpenChar tagName:elemTag ws* attrs:elemAttr* ws* elemCloseChar children:elemContents elemClose
 {
-  return {
+  const node = {
     children,
-    type: 'element',
+    type: 'htmlElement',
     tagName,
     attributes: attrs,
   };
+
+  if (options.location === true) {
+    node.location = location();
+  }
+
+  return node;
 }
 
 elemOpenChar 'elementOpeningCharacter' = (!'<-' '<')
@@ -398,7 +402,7 @@ elemAttr 'elementAttribute'
   attrValue:('=' value:elemAttrValue ws* { return value; })? ws*
 {
   const node = {
-    type: 'elementAttribute',
+    type: 'htmlElementAttribute',
     key,
     value: (attrValue || {}).value || '',
   };
@@ -406,6 +410,8 @@ elemAttr 'elementAttribute'
   if (options.location === true) {
     node.location = location();
   }
+
+  return node;
 }
 
 elemAttrKey 'elementAttributeKey' = $elemKey
@@ -421,7 +427,7 @@ sugarStyleInvokeClose 'Sugar-style invocation closing' = '>>'
 
 invokeName = $invokeNameChar+
 
-variableOpen 'variableOpener' = "$"
+variableOpen 'variableOpener' = '$'
 variable = variableOpen varName:$invokeNameChar+
 {
   const node = {

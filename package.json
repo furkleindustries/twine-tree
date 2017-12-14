@@ -1,27 +1,32 @@
 {
   "name": "twine-tree",
   "main": "dist/index.js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Formal grammars and generated parsers for an abstract Twine interface.",
   "scripts": {
-    "build": "webpack",
-    "build-parsers": "pegjs --format es -o src/Parsers/GatelyParser.js src/Parsers/gately.pegjs && pegjs --format es -o src/Parsers/HarloweParser.js src/Parsers/harlowe.pegjs && pegjs --format es -o src/Parsers/HtmlParser.js src/Parsers/html.pegjs && pegjs --format es -o src/Parsers/SugarParser.js src/Parsers/sugar.pegjs",
+    "build": "webpack --display-modules",
+    "build-parsers": "pegjs --format es -o src/Parsers/GatelyParser.js src/Parsers/gately.pegjs && pegjs --format es -o src/Parsers/HarloweParser.js src/Parsers/harlowe.pegjs && pegjs --format es -o src/Parsers/SugarParser.js src/Parsers/sugar.pegjs",
     "build-all": "npm run build-parsers && npm run build",
     "test": "jest",
     "test-coverage": "jest --coverage",
     "test-watch": "jest --watch",
     "test-coverage-watch": "jest --watch --coverage"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/furkleindustries/twine-tree.git"
   },
+
   "keywords": [
     "ast",
+    "abstract syntax tree",
     "pegjs",
     "parser",
+    "tree",
     "twine",
-    "tree"
+    "twine format",
+    "twine tree"
   ],
   "author": "furkle",
   "license": "GPL-3.0",
@@ -54,16 +59,14 @@
     "mapCoverage": true,
     "moduleFileExtensions": [
       "ts",
-      "tsx",
-      "js",
-      "jsx"
+      "js"
     ],
     "testMatch": [
       "<rootDir>/src/**/*.test.js"
     ],
     "transform": {
-      "^.+\\.jsx?$": "babel-jest",
-      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.ts$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "transformIgnorePatterns": [
       "/node_modules/*",

@@ -7,7 +7,7 @@ import {
 
 export interface IInvocationBodySyntaxNode extends IAbstractSyntaxNode, IParentSyntaxNode {
   type:    'invocationBody';
-  subtype: 'hook' | 'inner';
+  subtype: 'hook' | 'inner' | 'invocationBodyElement';
 }
 
 export default IInvocationBodySyntaxNode;

@@ -6,8 +6,9 @@ import {
 } from '../TAbstractSyntaxContent';
 
 export interface IArgumentSyntaxNode extends IAbstractSyntaxNode {
-  type:  'argument';
-  value: TAbstractSyntaxContent;
+  type:     'argument';
+  subtype?: 'argumentElement';
+  value:    TAbstractSyntaxContent;
 }
 
 export default IArgumentSyntaxNode;
