@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module":  "umd",
+    "outDir":  "dist/es3.node/",
+    "target":  "es3"
+  }
+}

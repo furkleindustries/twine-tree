@@ -313,8 +313,8 @@ script
     children: [ contents, ],
   };
 
-  if (options.javascriptParser === 'function') {
-    node.children[0] = options.javascriptParser(contents);
+  if (options.javascriptParse === 'function') {
+    node.children[0] = options.javascriptParse(contents);
   }
 
   return node;
@@ -334,8 +334,8 @@ style
     children: [ contents, ],
   };
 
-  if (options.cssParser === 'function') {
-    node.children[0] = options.cssParser(contents);
+  if (options.cssParse === 'function') {
+    node.children[0] = options.cssParse(contents);
   }
 
   if (options.location === true) {

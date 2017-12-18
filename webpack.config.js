@@ -1,100 +1,156 @@
-const path = require('path');
+const path     = require('path');
+const uglifyjs = require('uglifyjs-webpack-plugin');
+const webpack  = require('webpack');
 
-module.exports = {
-  // Here the application starts executing
-  // and webpack starts bundling
-  entry: path.resolve(__dirname, 'src/exports.ts'), // string | object | array
-
-  // options related to how webpack emits results
-  output: {
-    // the target directory for all output files
-    // must be an absolute path (use the Node.js path module)
-    path: path.resolve(__dirname, 'dist'), // string
-
-    // the filename template for entry chunks
-    filename: 'index.js', // string
-
-    // the name of the exported library
-    library: 'TwineTree', // string,
-
-    libraryTarget: 'commonjs',
-  },
-
+const baseConfig = {
+  entry: path.resolve(__dirname, 'dist/esnext.node/index.js'),
   resolve: {
-    extensions: [ '.ts', '.tsx', '.js', '.jsx', ],
-  },
-
-  module: {
-    // configuration regarding modules
-    rules: [
-      // rules for modules (configure loaders, parser options, etc.)
-      {
-        // these are matching conditions, each accepting a regular expression or string
-        // test and include have the same behavior, both must be matched
-        // exclude must not be matched (takes preferrence over test and include)
-        // Best practices:
-        // - Use RegExp only in test and for filename matching
-        // - Use arrays of absolute paths in include and exclude
-        // - Try to avoid exclude and prefer include
-        test: /\.(j|t)sx?$/,
-        include: [ path.resolve(__dirname, 'src'), ],
-
-        // the loader which should be applied, it'll be resolved relative to the context
-        // -loader suffix is no longer optional in webpack2 for clarity reasons
-        // see webpack 1 upgrade guide
-        loader: 'awesome-typescript-loader',
-        query: {
-          useBabel: true,
-          useCache: true,
-        },
-      },
-    ],
+    extensions: [ '.ts', '.js', ],
   },
 
   node: {
     fs: 'empty',
   },
 
+  plugins: [
+    new uglifyjs({ sourceMap: true, }),
+  ],
+
   performance: {
-    hints: 'warning', // enum
-    maxAssetSize: 200000, // int (in bytes),
-    maxEntrypointSize: 400000, // int (in bytes)
+    hints: 'warning',
+    maxAssetSize: 200000,
+    maxEntrypointSize: 400000,
     assetFilter(assetFilename) {
-      // Function predicate that provides asset filenames
-      return assetFilename.endsWith('.css') ||
-        assetFilename.endsWith('.js') ||
-        assetFilename.endsWith('.ts');
+      return assetFilename.endsWith('.js') || assetFilename.endsWith('.ts');
     },
   },
 
-  // enhance debugging by adding meta info for the browser devtools
-  // source-map most detailed at the expense of build speed.
-  devtool: 'source-map', // enum
-
-  // the home directory for webpack
-  // the entry and module.rules.loader option
-  //   is resolved relative to this directory
-  context: __dirname, // string (absolute path!)
-
-  // lets you precisely control what bundle information gets displayed
+  devtool: 'source-map',
+  context: __dirname,
   stats: 'errors-only',
-
   devServer: {
-    contentBase: path.join(__dirname, 'public'), // boolean | string | array, static file location
-    compress: true, // enable gzip compression
-    historyApiFallback: true, // true for index.html upon 404, object for multiple paths
-    hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
-    https: false, // true for self-signed, object for cert authority
-    noInfo: true, // only errors & warns on hot reload
+    contentBase: path.join(__dirname, 'public'),
+    compress: true,
+    historyApiFallback: true,
+    hot: true,
+    https: false,
+    noInfo: true,
   },
 
-  plugins: [],
-
-  profile: true, // boolean
-  // capture timing information
-
-  bail: true, // boolean
-
-  // disable/enable caching
-  cache: false, // boolean
+  profile: false,
+  bail: true,
+  cache: false,
 };
+
+const esThreeBrowserConfig = Object.assign({}, baseConfig, {
+  output: {
+    path: path.resolve(__dirname, 'dist/es3.browser/'),
+    filename: 'index.js',
+    libraryTarget: 'umd',
+  },
+
+  node: {
+    fs: 'empty',
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.(j|t)s$/,
+        include: [
+          path.resolve(__dirname, 'dist/esnext.node/'),
+        ],
+
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                'env',
+                {
+                  targets: {
+                    browsers: [
+                      /* Since ten years ago. */
+                      'since 2008',
+                    ],
+                  },
+
+                  loose: true,
+                  modules: false
+                },
+              ],
+
+              'stage-0',
+            ],
+
+            plugins: [
+              'transform-object-assign',
+            ],
+          },
+        },
+      },
+    ],
+  },
+});
+
+const esFiveBrowserConfig = Object.assign({}, baseConfig, {
+  output: {
+    path: path.resolve(__dirname, 'dist/es5.browser/'),
+    filename: 'index.js',
+    libraryTarget: 'umd',
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.(j|t)s$/,
+        include: [
+          path.resolve(__dirname, 'dist/esnext.node/'),
+        ],
+
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                'env',
+
+                {
+                  targets: {
+                    browsers: [
+                      /* Since five years ago. */
+                      'since 2013',
+                    ],
+                  },
+
+                  loose: true,
+                  modules: false
+                },
+              ],
+
+              'stage-0',
+            ],
+
+            plugins: [
+              'transform-object-assign',
+            ],
+          },
+        },
+      },
+    ],
+  },
+});
+
+const esSixBrowserConfig = Object.assign({}, baseConfig, {
+  output: {
+    path: path.resolve(__dirname, 'dist/es6.browser/'),
+    filename: 'index.js',
+    libraryTarget: 'umd',
+  },
+});
+
+module.exports = [
+  esThreeBrowserConfig,
+  esFiveBrowserConfig,
+  esSixBrowserConfig,
+];

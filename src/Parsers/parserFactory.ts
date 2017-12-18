@@ -1,73 +1,42 @@
 import {
-  parse as cssParse,
-} from 'css';
+  CssParser,
+} from './CssParser';
 import {
-  parseModule,
-} from 'esprima';
+  GatelyParser,
+} from './GatelyParser';
+import {
+  HarloweParser,
+} from './HarloweParser';
 import {
   IParser,
 } from './IParser';
-import * as GatelyParser  from './GatelyParser';
-import * as HarloweParser from './HarloweParser';
-import * as HtmlParser    from './HtmlParser';
-import * as SugarParser   from './SugarParser';
-
-const twineParserOpts = {
-  checkVoidElements: true,
-  location: true,
-};
-
-const harloweParse = (source: string) => {
-  return HarloweParser.parse(source, twineParserOpts);
-};
-
-const htmlParse = (source: string) => {
-  return HtmlParser.parse(source, twineParserOpts);
-};
-
-const gatelyParse = (source: string) => {
-  return GatelyParser.parse(source, twineParserOpts);
-};
-
-const sugarParse = (source: string) => {
-  return SugarParser.parse(source, twineParserOpts);
-};
-
-const jsParserOpts = {
-  comment: true,
-  loc: true,
-  tokens: true,
-};
-
-const jsParse = (source: string) => parseModule(source, jsParserOpts);
+import {
+  JavascriptParser,
+} from './JavascriptParser';
+import {
+  SugarParser,
+} from './SugarParser';
 
 export const enum strings {
   DIALECT_INVALID =
-    'The dialect argument was not a string.',
-
-  DIALECT_EMPTY =
-    'The dialect argument was an empty string.',
+    'The dialect argument was not a string with content.',
 };
 
 export function parserFactory(dialect: string): IParser {
-  if (typeof dialect !== 'string') {
+  if (typeof dialect !== 'string' || !dialect) {
     throw new Error(strings.DIALECT_INVALID);
-  } else if (!dialect) {
-    throw new Error(strings.DIALECT_EMPTY);
   }
 
   if (/^css$/i.test(dialect)) {
-    return <IParser>{ parse: cssParse, };
+    return new CssParser();
   } if (/gately/i.test(dialect)) {
-    return <IParser>{ parse: gatelyParse, };
+    return new GatelyParser();
   } else if (/harlowe/i.test(dialect)) {
-    return <IParser>{ parse: harloweParse, };
-  } else if (/^html$/i.test(dialect)) {
-    return <IParser>{ parse: htmlParse, };
+    return new HarloweParser();
   } else if (/^js|javascript$/i.test(dialect)) {
-    return <IParser>{ parse: jsParse, };
+    return new JavascriptParser();
   } else if (/^sugar(cane|cube)?$/i.test(dialect)) {
-    return <IParser>{ parse: sugarParse, };
+    return new SugarParser();
   } else {
     throw new Error('Parse type not implemented.');
   }
