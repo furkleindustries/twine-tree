@@ -1,3 +1,5 @@
+dist/
 node_modules/
+*.swp
 .awcache
 .DS_Store

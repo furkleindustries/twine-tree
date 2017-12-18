@@ -308,8 +308,8 @@ script
     node.location = location();
   }
 
-  if (typeof options.javascriptParser === 'function') {
-    node.children[0] = options.javascriptParser(contents);
+  if (typeof options.javascriptParse === 'function') {
+    node.children[0] = options.javascriptParse(contents);
   }
 
   return node;
@@ -333,8 +333,8 @@ style
     node.location = location();
   }
 
-  if (typeof options.javascriptParser === 'function') {
-    node.children[0] = options.javascriptParser(contents);
+  if (typeof options.cssParse === 'function') {
+    node.children[0] = options.cssParse(contents);
   }
 
   return node;

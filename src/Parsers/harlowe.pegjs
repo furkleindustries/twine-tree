@@ -333,8 +333,8 @@ script
     children: [ contents, ],
   };
 
-  if (typeof options.javascriptParser === 'function') {
-    node.children[0] = options.javascriptParser(contents);
+  if (typeof options.javascriptParse === 'function') {
+    node.children[0] = options.javascriptParse(contents);
   }
 
   if (options.location === true) {
@@ -358,8 +358,8 @@ style
     children: [ contents, ],
   };
 
-  if (options.cssParser === 'function') {
-    node.children[0] = options.cssParser(contents);
+  if (options.cssParse === 'function') {
+    node.children[0] = options.cssParse(contents);
   }
 
   if (options.location === true) {

@@ -2,6 +2,9 @@ import {
   IIFID,
 } from 'ifid/src/IFID/IIFID';
 import {
+  IPassage,
+} from '../Passage/IPassage';
+import {
   SemVer,
 } from 'semver';
 
@@ -14,6 +17,7 @@ export interface IStory {
   format:         string;
   options:        Object;
   hidden:         boolean;
+  passages:       Array<IPassage>;
 }
 
 export default IStory;
