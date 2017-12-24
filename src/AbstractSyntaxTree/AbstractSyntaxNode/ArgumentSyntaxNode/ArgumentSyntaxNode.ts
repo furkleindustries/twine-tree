@@ -20,8 +20,8 @@ import {
   TAbstractSyntaxContent,
 } from '../../TAbstractSyntaxContent';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   VALUE_INVALID:
@@ -36,7 +36,7 @@ export abstract class ArgumentSyntaxNode extends AbstractAbstractSyntaxNode impl
 
   constructor(
     value:          TAbstractSyntaxContent,
-    attributes:     THtmlAttributeSyntaxNodeMap = {},
+    attributes:     THtmlElementAttributeSyntaxNodeMap = {},
     location:       ILocation | null = null)
   {
     super(attributes, location);

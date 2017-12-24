@@ -8,8 +8,8 @@ import {
   IVariableSyntaxNode,
 } from './IVariableSyntaxNode';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 import {
   VariableSyntaxNodeSubtypes,
 } from './VariableSyntaxNodeSubtypes';
@@ -31,7 +31,7 @@ export class VariableSyntaxNode extends AbstractAbstractSyntaxNode implements IV
   constructor(
     name:           string,
     subtype:        VariableSyntaxNodeSubtypes,
-    attributes:     THtmlAttributeSyntaxNodeMap,
+    attributes:     THtmlElementAttributeSyntaxNodeMap,
     location:       ILocation | null)
   {
     super(attributes, location);

@@ -2,7 +2,7 @@
   "name": "twine-tree",
   "main": "dist/es6.node/index.js",
   "types": "src/index.d.ts",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Formal grammars and generated parsers for an abstract Twine interface.",
   "scripts": {
     "build": "npm run build-node && npm run build-browser",

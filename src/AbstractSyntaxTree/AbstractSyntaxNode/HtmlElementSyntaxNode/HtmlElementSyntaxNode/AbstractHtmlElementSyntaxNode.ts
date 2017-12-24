@@ -1,21 +1,21 @@
 import {
   AbstractAbstractSyntaxNode,
-} from '../AbstractAbstractSyntaxNode';
+} from '../../AbstractAbstractSyntaxNode';
 import {
   AbstractSyntaxNodeTypes,
-} from '../AbstractSyntaxNodeTypes';
+} from '../../AbstractSyntaxNodeTypes';
 import {
-  HtmlSyntaxNodeSubtypes,
-} from './HtmlSyntaxNodeSubtypes';
+  HtmlElementSyntaxNodeSubtypes,
+} from './HtmlElementSyntaxNodeSubtypes';
 import {
   ILocation,
-} from '../../ILocation';
+} from '../../../ILocation';
 import {
   TAbstractSyntaxContent,
-} from '../../TAbstractSyntaxContent';
+} from '../../../TAbstractSyntaxContent';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 import {
   IHtmlElementSyntaxNode,
 } from './IHtmlElementSyntaxNode';
@@ -38,7 +38,7 @@ export const strings = {
 
 export abstract class AbstractHtmlElementSyntaxNode extends AbstractAbstractSyntaxNode implements IHtmlElementSyntaxNode {
   readonly type:     AbstractSyntaxNodeTypes.HtmlElement = AbstractSyntaxNodeTypes.HtmlElement;
-  readonly subtype:  HtmlSyntaxNodeSubtypes;
+  readonly subtype:  HtmlElementSyntaxNodeSubtypes;
   readonly tagName:  string;
   readonly children: Array<TAbstractSyntaxContent> |
                      [ string | Program | Stylesheet ];
@@ -47,7 +47,7 @@ export abstract class AbstractHtmlElementSyntaxNode extends AbstractAbstractSynt
     tagName:         string,
     children:        Array<TAbstractSyntaxContent> |
                      [ string | Program | Stylesheet ],
-    attributes:      THtmlAttributeSyntaxNodeMap = {},
+    attributes:      THtmlElementAttributeSyntaxNodeMap = {},
     location:        ILocation | null = null)
   {
     super(attributes, location);

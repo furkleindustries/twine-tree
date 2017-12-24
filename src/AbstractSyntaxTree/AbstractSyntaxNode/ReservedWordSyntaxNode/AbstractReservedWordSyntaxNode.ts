@@ -14,8 +14,8 @@ import {
   ReservedWordSyntaxNodeSubtypes,
 } from './ReservedWordSyntaxNodeSubtypes';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   SOURCE_INVALID:
@@ -30,7 +30,7 @@ export abstract class AbstractReservedWordSyntaxNode extends AbstractAbstractSyn
 
   constructor(
     source:         string,
-    attributes:     THtmlAttributeSyntaxNodeMap = {},
+    attributes:     THtmlElementAttributeSyntaxNodeMap = {},
     location:       ILocation | null = null)
   {
     super(attributes, location);

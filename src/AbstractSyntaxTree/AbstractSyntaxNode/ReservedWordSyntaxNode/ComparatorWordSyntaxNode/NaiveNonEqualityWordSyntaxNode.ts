@@ -10,7 +10,9 @@ import {
 import {
   INaiveNonEqualityWordSyntaxNode,
 } from './INaiveNonEqualityWordSyntaxNode';
-import { THtmlAttributeSyntaxNodeMap } from '../../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+import {
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   SOURCE_INVALID:
@@ -24,7 +26,7 @@ export class NaiveNonEqualityWordSyntaxNode extends AbstractReservedWordSyntaxNo
 
   constructor(
     source:         'neq' | '!=',
-    attributes:     THtmlAttributeSyntaxNodeMap = {},
+    attributes:     THtmlElementAttributeSyntaxNodeMap = {},
     location:       ILocation | null = null)
   {
     super(source, attributes, location);

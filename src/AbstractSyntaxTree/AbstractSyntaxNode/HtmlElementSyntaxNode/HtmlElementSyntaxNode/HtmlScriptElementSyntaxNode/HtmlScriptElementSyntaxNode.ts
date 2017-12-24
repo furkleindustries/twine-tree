@@ -1,24 +1,24 @@
 import {
   AbstractHtmlElementSyntaxNode,
-} from './AbstractHtmlElementSyntaxNode';
+} from '../AbstractHtmlElementSyntaxNode';
 import {
-  HtmlSyntaxNodeSubtypes,
-} from './HtmlSyntaxNodeSubtypes';
+  HtmlElementSyntaxNodeSubtypes,
+} from '../HtmlElementSyntaxNodeSubtypes';
 import {
-  IHtmlScriptSyntaxNode,
-} from './IHtmlScriptSyntaxNode';
+  IHtmlScriptElementSyntaxNode,
+} from './IHtmlScriptElementSyntaxNode';
 import {
   ILocation,
-} from '../../ILocation';
+} from '../../../../ILocation';
 import {
   isProgram,
-} from '../../isProgram';
+} from '../../../../isProgram';
 import {
   Program,
 } from 'esprima';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../../HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   CHILDREN_INVALID:
@@ -35,8 +35,8 @@ export const strings = {
     'was not a string.',
 };
 
-export abstract class HtmlScriptSyntaxNode extends AbstractHtmlElementSyntaxNode implements IHtmlScriptSyntaxNode {
-  readonly subtype:  HtmlSyntaxNodeSubtypes.Script;
+export abstract class HtmlScriptSyntaxNode extends AbstractHtmlElementSyntaxNode implements IHtmlScriptElementSyntaxNode {
+  readonly subtype:  HtmlElementSyntaxNodeSubtypes.Script;
   readonly tagName:  'script' = 'script';
   readonly children: [ Program | string ];
   readonly source:   string;
@@ -44,7 +44,7 @@ export abstract class HtmlScriptSyntaxNode extends AbstractHtmlElementSyntaxNode
   constructor(
     children:        [ Program | string ],
     source:          string,
-    attributes:      THtmlAttributeSyntaxNodeMap = {},
+    attributes:      THtmlElementAttributeSyntaxNodeMap = {},
     location:        ILocation | null = null)
   {
     super('script', children, attributes, location);

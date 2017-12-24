@@ -8,15 +8,15 @@ import {
   ILocation,
 } from '../../ILocation';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export class LastReferencedVariableWordSyntaxNode extends AbstractReservedWordSyntaxNode implements ILastReferencedVariableWordSyntaxNode {
   readonly subtype: 'lastReferencedVariableWord' = 'lastReferencedVariableWord';
   readonly source:  'it' = 'it';
 
   constructor(
-    attributes:     THtmlAttributeSyntaxNodeMap = {},
+    attributes:     THtmlElementAttributeSyntaxNodeMap = {},
     location:       ILocation | null)
   {
     super('it', attributes, location);

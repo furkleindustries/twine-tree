@@ -6,7 +6,7 @@ import {
 } from './IAbstractSyntaxNode';
 import {
   isHtmlAttributeSyntaxNodeMap,
-} from './HtmlSyntaxNode/isHtmlAttributeSyntaxNodeMap';
+} from './HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/isHtmlAttributeSyntaxNodeMap';
 import {
   isLocation,
 } from '../isLocation';

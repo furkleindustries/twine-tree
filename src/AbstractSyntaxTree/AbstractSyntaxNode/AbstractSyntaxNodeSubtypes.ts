@@ -2,8 +2,8 @@ import {
   ArgumentSyntaxNodeSubtypes,
 } from './ArgumentSyntaxNode/ArgumentSyntaxNodeSubtypes';
 import {
-  HtmlSyntaxNodeSubtypes,
-} from './HtmlSyntaxNode/HtmlSyntaxNodeSubtypes';
+  HtmlElementSyntaxNodeSubtypes,
+} from './HtmlElementSyntaxNode/HtmlElementSyntaxNode/HtmlElementSyntaxNodeSubtypes';
 import {
   InvocationBodySyntaxNodeSubtypes,
 } from './InvocationBodySyntaxNode/InvocationBodySyntaxNodeSubtypes';
@@ -28,7 +28,7 @@ import {
 
 export type AbstractSyntaxNodeSubtypes =
   ArgumentSyntaxNodeSubtypes |
-  HtmlSyntaxNodeSubtypes |
+  HtmlElementSyntaxNodeSubtypes |
   InvocationBodySyntaxNodeSubtypes |
   InvocationSyntaxNodeSubtypes |
   LinkSyntaxNodeSubtypes |

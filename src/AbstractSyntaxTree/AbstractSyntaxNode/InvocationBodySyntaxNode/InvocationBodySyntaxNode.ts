@@ -20,8 +20,8 @@ import {
   TAbstractSyntaxContent,
 } from '../../TAbstractSyntaxContent';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   SUBTYPE_INVALID:
@@ -53,7 +53,7 @@ export abstract class InvocationBodySyntaxNode extends AbstractAbstractSyntaxNod
     subtype:         InvocationBodySyntaxNodeSubtypes,
     children:        Array<TAbstractSyntaxContent>,
     source:          string,
-    attributes:      THtmlAttributeSyntaxNodeMap = {},
+    attributes:      THtmlElementAttributeSyntaxNodeMap = {},
     location:        ILocation | null = null)
   {
     super(attributes, location);

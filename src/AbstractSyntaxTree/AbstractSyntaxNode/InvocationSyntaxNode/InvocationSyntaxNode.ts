@@ -23,8 +23,8 @@ import {
   isInvocationBodySyntaxNode,
 } from '../InvocationBodySyntaxNode/isInvocationBodySyntaxNode';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 import IArgumentSyntaxNode from '../ArgumentSyntaxNode/IArgumentSyntaxNode';
 
 export const strings = {
@@ -62,7 +62,7 @@ export abstract class InvocationSyntaxNode extends AbstractAbstractSyntaxNode im
     subtype:          InvocationSyntaxNodeSubtypes,
     args:             Array<IArgumentSyntaxNode> = [],
     body:             IInvocationBodySyntaxNode | null = null,
-    attributes:       THtmlAttributeSyntaxNodeMap = {},
+    attributes:       THtmlElementAttributeSyntaxNodeMap = {},
     location:         ILocation | null = null)
   {
     super(attributes, location);

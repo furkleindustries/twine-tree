@@ -14,8 +14,8 @@ import {
   StringSyntaxNodeSubtypes,
 } from './StringSyntaxNodeSubtypes';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   VALUE_INVALID:
@@ -35,7 +35,7 @@ export class StringSyntaxNode extends AbstractAbstractSyntaxNode implements IStr
   constructor(
     value:          string,
     subtype:        StringSyntaxNodeSubtypes,
-    attributes:     THtmlAttributeSyntaxNodeMap = {},
+    attributes:     THtmlElementAttributeSyntaxNodeMap = {},
     location:       ILocation | null = null)
   {
     super(attributes, location);
