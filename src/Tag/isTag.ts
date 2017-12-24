@@ -1,15 +1,10 @@
 import {
-  isTagObject,
-} from './isTagObject';
-import {
-  TTag,
-} from './TTag';
+  ITag,
+} from './ITag';
 
-export function isTag(maybe: any): maybe is TTag {
-  if (!maybe) {
-    return false;
-  }
-  
-  
-  return typeof maybe === 'string' || isTagObject(maybe);
+export function isTag(maybe: any): maybe is ITag {
+  return typeof maybe === 'object' &&
+    maybe &&
+    typeof maybe.value === 'string' &&
+    maybe.value;
 }

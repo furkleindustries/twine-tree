@@ -1,26 +1,16 @@
 import {
+  AbstractSyntaxNodeTypes,
+} from '../AbstractSyntaxNodeTypes';
+import {
   ISourceAwareSyntaxNode,
 } from '../ISourceAwareSyntaxNode';
+import {
+  ReservedWordSyntaxNodeSubtypes,
+} from './ReservedWordSyntaxNodeSubtypes';
 
 export interface IReservedWordSyntaxNode extends ISourceAwareSyntaxNode {
-  type: 'reservedWord';
-  subtype:
-    'additionAndConcatenationWord' |
-    'assignmentAdderWord' |
-    'assignmentDividerWord' |
-    'assignmentSubtractorWord' |
-    'assignmentModuloWord' |
-    'assignmentMultiplierWord' |
-    'assignmentWord' |
-    'divisionWord' |
-    'exactEqualityWord' |
-    'exactNonEqualityWord' |
-    'moduloWord' |
-    'multiplicationWord' |
-    'subtractionWord' |
-    'lastReferencedVariableWord' |
-    'naiveEqualityWord' |
-    'naiveNonEqualityWord';
+  readonly type:    AbstractSyntaxNodeTypes.ReservedWord;
+  readonly subtype: ReservedWordSyntaxNodeSubtypes;
 }
 
 export default IReservedWordSyntaxNode;

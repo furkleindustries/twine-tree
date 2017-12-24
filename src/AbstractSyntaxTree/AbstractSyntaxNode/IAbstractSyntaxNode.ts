@@ -1,59 +1,21 @@
 import {
+  AbstractSyntaxNodeSubtypes,
+} from './AbstractSyntaxNodeSubtypes';
+import {
+  AbstractSyntaxNodeTypes,
+} from './AbstractSyntaxNodeTypes';
+import {
   ILocation,
 } from '../ILocation';
+import {
+  THtmlAttributeSyntaxNodeMap,
+} from './HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
 
 export interface IAbstractSyntaxNode {
-  type:
-    'argument' |
-    'htmlElement' |
-    'htmlElementAttribute' |
-    'invocation' |
-    'invocationBody' |
-    'link' |
-    'number' |
-    'string' |
-    'variable' |
-    'reservedWord';
-
-  subtype?:
-    'additionAndConcatenationWord' |
-    'argumentElement' |
-    'assignmentAdderWord' |
-    'assignmentDividerWord' |
-    'assignmentModuloWord' |
-    'assignmentMultiplierWord' |
-    'assignmentSubtractorWord' |
-    'assignmentWord' |
-    'bare' |
-    'divisionWord' |
-    'doubleQuote' |
-    'exactEqualityWord' |
-    'exactNonEqualityWord' |
-    'grave' |
-    'hook' |
-    'inner' |
-    'invocationBodyElement' |
-    'lastReferencedVariableWord' |
-    'linkElement' |
-    'moduloWord' |
-    'multiplicationWord' |
-    'naiveEqualityWord' |
-    'naiveNonEqualityWord' |
-    'numberElement' |
-    'onePart' |
-    'script' |
-    'singleQuote' |
-    'stringElement' |
-    'subtractionWord' |
-    'style' |
-    'twoPartRightArrow' |
-    'twoPartLeftArrow' |
-    'twoPartBar' |
-    'withBody' |
-    'withoutBody';
-
-  attributes?: Object;
-  location?:   ILocation;
+  readonly type:       AbstractSyntaxNodeTypes;
+  readonly subtype?:   AbstractSyntaxNodeSubtypes;
+  readonly attributes: THtmlAttributeSyntaxNodeMap;
+  readonly location:   ILocation | null;
 }
 
 export default IAbstractSyntaxNode;

@@ -1,9 +1,12 @@
 import {
   ILink,
-} from "./ILink";
+} from './ILink';
+import {
+  LinkTypes,
+} from './LinkTypes';
 
 export interface ICssImportLink extends ILink {
-  type: 'cssImport';
+  type: LinkTypes.CssImport;
 }
 
 export default ICssImportLink;

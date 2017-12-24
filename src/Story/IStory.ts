@@ -1,22 +1,27 @@
 import {
+  Dialects,
+} from '../Dialect/Dialects';
+import {
   IIFID,
-} from 'ifid/src/IFID/IIFID';
+} from 'ifid';
 import {
   IPassage,
 } from '../Passage/IPassage';
 import {
   SemVer,
 } from 'semver';
+import {
+  TUnknownVersion,
+} from './TUnknownVersion';
 
 export interface IStory {
   name:           string;
   startNode:      number;
   creator:        string;
-  creatorVersion: SemVer;
+  creatorVersion: SemVer | TUnknownVersion;
   ifid:           IIFID;
-  format:         string;
-  options:        Object;
-  hidden:         boolean;
+  format:         Dialects | string;
+  options:        Array<string>;
   passages:       Array<IPassage>;
 }
 

@@ -2,15 +2,15 @@ import {
   IPassage,
 } from './IPassage';
 import {
-  TTag,
-} from '../Tag/TTag';
+  PassageTypes,
+} from './PassageTypes';
 import {
   TAbstractSyntaxContent,
 } from '../AbstractSyntaxTree/TAbstractSyntaxContent';
 
 export interface IStoryPassage extends IPassage {
+  type:               PassageTypes.Story;
   abstractSyntaxTree: Array<TAbstractSyntaxContent>;
-  tags: Array<TTag>;
 }
 
 export default IStoryPassage;
