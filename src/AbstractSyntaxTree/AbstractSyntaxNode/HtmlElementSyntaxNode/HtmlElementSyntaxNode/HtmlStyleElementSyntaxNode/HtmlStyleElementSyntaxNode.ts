@@ -1,24 +1,24 @@
 import {
   AbstractHtmlElementSyntaxNode,
-} from './AbstractHtmlElementSyntaxNode';
+} from '../AbstractHtmlElementSyntaxNode';
 import {
-  HtmlSyntaxNodeSubtypes,
-} from './HtmlSyntaxNodeSubtypes';
+  HtmlElementSyntaxNodeSubtypes,
+} from '../HtmlElementSyntaxNodeSubtypes';
 import {
-  IHtmlStyleSyntaxNode,
-} from './IHtmlStyleSyntaxNode';
+  IHtmlStyleElementSyntaxNode,
+} from './IHtmlStyleElementSyntaxNode';
 import {
   ILocation,
-} from '../../ILocation';
+} from '../../../../ILocation';
 import {
   isProgram,
-} from '../../isProgram';
+} from '../../../../isProgram';
 import {
   Stylesheet,
 } from 'css';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../../HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   CHILDREN_INVALID:
@@ -35,8 +35,8 @@ export const strings = {
     'was not a string.',
 };
 
-export abstract class HtmlStyleSyntaxNode extends AbstractHtmlElementSyntaxNode implements IHtmlStyleSyntaxNode {
-  readonly subtype:  HtmlSyntaxNodeSubtypes.Style;
+export abstract class HtmlStyleSyntaxNode extends AbstractHtmlElementSyntaxNode implements IHtmlStyleElementSyntaxNode {
+  readonly subtype:  HtmlElementSyntaxNodeSubtypes.Style;
   readonly tagName:  'style' = 'style';
   readonly children: [ Stylesheet | string ];
   readonly source:   string;
@@ -44,7 +44,7 @@ export abstract class HtmlStyleSyntaxNode extends AbstractHtmlElementSyntaxNode 
   constructor(
     children:        [ Stylesheet | string ],
     source:          string,
-    attributes:      THtmlAttributeSyntaxNodeMap = {},
+    attributes:      THtmlElementAttributeSyntaxNodeMap = {},
     location:        ILocation | null = null)
   {
     super('style', children, attributes, location);

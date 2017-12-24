@@ -6,7 +6,7 @@ import {
 } from './IAssignmentWordSyntaxNode';
 
 export interface IAssignmentMultiplierWordSyntaxNode extends IAssignmentWordSyntaxNode {
-  readonly subtype: AssignmentWordSyntaxNodeSubtypes.AssignmentMultiplerWord;
+  readonly subtype: AssignmentWordSyntaxNodeSubtypes.AssignmentMultiplierWord;
   readonly source:  'multiplyequals' | 'multiply-equals' | '*=';
 }
 

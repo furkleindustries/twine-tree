@@ -1,15 +1,15 @@
 import {
   AbstractSyntaxNodeTypes,
-} from '../AbstractSyntaxNodeTypes';
+} from '../../AbstractSyntaxNodeTypes';
 import {
-  HtmlSyntaxNodeSubtypes,
-} from './HtmlSyntaxNodeSubtypes';
+  HtmlElementSyntaxNodeSubtypes,
+} from './HtmlElementSyntaxNodeSubtypes';
 import {
   IParentSyntaxNode,
-} from '../IParentSyntaxNode';
+} from '../../IParentSyntaxNode';
 import {
   TAbstractSyntaxContent,
-} from '../../TAbstractSyntaxContent';
+} from '../../../TAbstractSyntaxContent';
 import {
   Program,
 } from 'esprima';
@@ -19,7 +19,7 @@ import {
 
 export interface IHtmlElementSyntaxNode extends IParentSyntaxNode {
   readonly type:     AbstractSyntaxNodeTypes.HtmlElement;
-  readonly subtype:  HtmlSyntaxNodeSubtypes;
+  readonly subtype:  HtmlElementSyntaxNodeSubtypes;
   readonly tagName:  string;
   readonly children: Array<TAbstractSyntaxContent> |
                      [ string | Program | Stylesheet ];

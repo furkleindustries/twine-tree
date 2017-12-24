@@ -20,8 +20,8 @@ import {
   TAbstractSyntaxContent,
 } from '../../TAbstractSyntaxContent';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   NAME_INVALID:
@@ -56,7 +56,7 @@ export abstract class LinkSyntaxNode extends AbstractAbstractSyntaxNode implemen
     passageName:        string,
     subtype:            LinkSyntaxNodeSubtypes,
     children:           Array<TAbstractSyntaxContent>,
-    attributes:         THtmlAttributeSyntaxNodeMap = {},
+    attributes:         THtmlElementAttributeSyntaxNodeMap = {},
     location:           ILocation | null = null)
   {
     super(attributes, location);

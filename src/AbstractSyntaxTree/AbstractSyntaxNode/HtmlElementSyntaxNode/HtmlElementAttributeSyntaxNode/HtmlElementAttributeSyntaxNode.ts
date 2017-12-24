@@ -1,18 +1,18 @@
 import {
   AbstractAbstractSyntaxNode,
-} from '../AbstractAbstractSyntaxNode';
+} from '../../AbstractAbstractSyntaxNode';
 import {
   AbstractSyntaxNodeTypes,
-} from '../AbstractSyntaxNodeTypes';
+} from '../../AbstractSyntaxNodeTypes';
 import {
-  IHtmlAttributeSyntaxNode,
-} from '../HtmlSyntaxNode/IHtmlAttributeSyntaxNode';
+  IHtmlElementAttributeSyntaxNode,
+} from './IHtmlElementAttributeSyntaxNode';
 import {
   ILocation,
-} from '../../ILocation';
+} from '../../../ILocation';
 import {
- THtmlAttributeSyntaxNodeMap,
-} from './THtmlAttributeSyntaxNodeMap';
+ THtmlElementAttributeSyntaxNodeMap,
+} from './THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   KEY_INVALID:
@@ -24,7 +24,7 @@ export const strings = {
     'not a string.',
 };
 
-export abstract class HtmlAttributeSyntaxNode extends AbstractAbstractSyntaxNode implements IHtmlAttributeSyntaxNode {
+export abstract class HtmlElementAttributeSyntaxNode extends AbstractAbstractSyntaxNode implements IHtmlElementAttributeSyntaxNode {
   readonly type:  AbstractSyntaxNodeTypes.HtmlElementAttribute = AbstractSyntaxNodeTypes.HtmlElementAttribute;
   readonly key:   string;
   readonly value: string;
@@ -32,7 +32,7 @@ export abstract class HtmlAttributeSyntaxNode extends AbstractAbstractSyntaxNode
   constructor(
     key:          string,
     value:        string,
-    attributes:   THtmlAttributeSyntaxNodeMap,
+    attributes:   THtmlElementAttributeSyntaxNodeMap,
     location:     ILocation | null = null)
   {
     super(attributes, location);
@@ -48,4 +48,4 @@ export abstract class HtmlAttributeSyntaxNode extends AbstractAbstractSyntaxNode
   }
 }
 
-export default HtmlAttributeSyntaxNode;
+export default HtmlElementAttributeSyntaxNode;

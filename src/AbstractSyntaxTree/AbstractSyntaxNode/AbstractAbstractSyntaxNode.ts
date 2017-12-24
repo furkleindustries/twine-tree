@@ -12,13 +12,13 @@ import {
 } from '../ILocation';
 import {
   isHtmlAttributeSyntaxNodeMap,
-} from './HtmlSyntaxNode/isHtmlAttributeSyntaxNodeMap';
+} from './HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/isHtmlAttributeSyntaxNodeMap';
 import {
   isLocation,
 } from '../isLocation';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from './HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from './HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   ATTRIBUTES_INVALID:
@@ -32,11 +32,11 @@ export const strings = {
 export abstract class AbstractAbstractSyntaxNode implements IAbstractSyntaxNode {
   readonly type:       AbstractSyntaxNodeTypes;
   readonly subtype?:   AbstractSyntaxNodeSubtypes;
-  readonly attributes: THtmlAttributeSyntaxNodeMap;
+  readonly attributes: THtmlElementAttributeSyntaxNodeMap;
   readonly location:   ILocation | null;
 
   constructor(
-    attributes:        THtmlAttributeSyntaxNodeMap = {},
+    attributes:        THtmlElementAttributeSyntaxNodeMap = {},
     location:          ILocation | null = null)
   {
     if (!isHtmlAttributeSyntaxNodeMap(attributes)) {

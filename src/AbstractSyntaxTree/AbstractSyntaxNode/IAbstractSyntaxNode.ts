@@ -8,13 +8,13 @@ import {
   ILocation,
 } from '../ILocation';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from './HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from './HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export interface IAbstractSyntaxNode {
   readonly type:       AbstractSyntaxNodeTypes;
   readonly subtype?:   AbstractSyntaxNodeSubtypes;
-  readonly attributes: THtmlAttributeSyntaxNodeMap;
+  readonly attributes: THtmlElementAttributeSyntaxNodeMap;
   readonly location:   ILocation | null;
 }
 

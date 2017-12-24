@@ -8,8 +8,8 @@ import {
   IAssignmentSubtractorWordSyntaxNode,
 } from './IAssignmentSubtractorWordSyntaxNode';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 import {
   ILocation,
 } from '../../../ILocation';
@@ -26,7 +26,7 @@ export class AssignmentSubtractorWordSyntaxNode extends AbstractReservedWordSynt
   
   constructor(
     source:         'minusequals' | 'minus-equals' | '-=',
-    attributes:     THtmlAttributeSyntaxNodeMap = {},
+    attributes:     THtmlElementAttributeSyntaxNodeMap = {},
     location:       ILocation | null = null)
   {
     super(source, attributes, location);

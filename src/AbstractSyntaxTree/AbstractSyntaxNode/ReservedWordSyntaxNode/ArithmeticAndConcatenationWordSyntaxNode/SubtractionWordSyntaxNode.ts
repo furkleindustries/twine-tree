@@ -11,12 +11,13 @@ import {
   ILocation,
 } from '../../../ILocation';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   SOURCE_INVALID:
-    ''
+    'The source argument passed to the SubtractionWordSyntaxNode ' +
+    'constructor was neither "minus" nor "-"',
 };
 
 export class SubtractionWordSyntaxNode extends AbstractReservedWordSyntaxNode implements ISubtractionWordSyntaxNode {
@@ -25,7 +26,7 @@ export class SubtractionWordSyntaxNode extends AbstractReservedWordSyntaxNode im
   
   constructor(
     source:         'minus' | '-',
-    attributes:     THtmlAttributeSyntaxNodeMap = {},
+    attributes:     THtmlElementAttributeSyntaxNodeMap = {},
     location:       ILocation | null = null)
   {
     super(source, attributes, location);

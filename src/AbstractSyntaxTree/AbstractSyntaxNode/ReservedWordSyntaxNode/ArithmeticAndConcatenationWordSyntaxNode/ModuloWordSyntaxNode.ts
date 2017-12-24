@@ -11,8 +11,8 @@ import {
   ILocation,
 } from '../../../ILocation';
 import {
-  THtmlAttributeSyntaxNodeMap,
-} from '../../HtmlSyntaxNode/THtmlAttributeSyntaxNodeMap';
+  THtmlElementAttributeSyntaxNodeMap,
+} from '../../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   SOURCE_INVALID:
@@ -26,7 +26,7 @@ export class ModuloWordSyntaxNode extends AbstractReservedWordSyntaxNode impleme
   
   constructor(
     source:         'modulo' | '%',
-    attributes:     THtmlAttributeSyntaxNodeMap = {},
+    attributes:     THtmlElementAttributeSyntaxNodeMap = {},
     location:       ILocation | null = null)
   {
     super(source, attributes, location);
