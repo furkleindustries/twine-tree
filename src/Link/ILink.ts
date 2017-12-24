@@ -2,14 +2,14 @@ import {
   IPassage,
 } from '../Passage/IPassage';
 import {
-  TLinkType,
-} from './TLinkType';
+  LinkTypes,
+} from './LinkTypes';
 import {
   TRunTimeReference,
 } from './TRunTimeReference';
 
 export interface ILink {
-  type: TLinkType;
+  type: LinkTypes;
   from: IPassage;
   to:   IPassage | TRunTimeReference;
 }

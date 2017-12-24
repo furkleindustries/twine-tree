@@ -1,5 +1,5 @@
 export interface ITag {
-  key:   string;
+  type:  'tag';
   value: string;
 }
 

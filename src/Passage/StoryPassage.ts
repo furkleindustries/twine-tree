@@ -2,14 +2,26 @@ import {
   ILink,
 } from '../Link/ILink';
 import {
+  isLink,
+} from '../Link/isLink';
+import {
+  isPosition,
+} from '../Position/isPosition';
+import {
+  isTag,
+} from '../Tag/isTag';
+import {
   IStoryPassage,
 } from './IStoryPassage';
 import {
-  TAbstractSyntaxContent,
-} from '../index';
+  ITag,
+} from '../Tag/ITag';
 import {
-  TTag,
-} from '../Tag/TTag';
+  PassageTypes,
+} from './PassageTypes';
+import {
+  TAbstractSyntaxContent,
+} from '../AbstractSyntaxTree/TAbstractSyntaxContent';
 
 export const strings = {
   UNKNOWN_CONSTRUCTION_ERROR:
@@ -26,6 +38,9 @@ export const strings = {
   NAME_INVALID:
     'The name argument to the StoryPassage constructor was not a string ' +
     'with content.',
+
+  SOURCE_INVALID:
+    'The source argument to the StoryPassage consructor was not a string.',
 
   ABSTRACT_SYNTAX_TREE_INVALID:
     'The abstractSyntaxTree argument to the StoryPassage constructor was ' +
@@ -51,19 +66,21 @@ export const strings = {
 };
 
 export class StoryPassage implements IStoryPassage {
-  readonly type:      'story';
+  readonly type:      PassageTypes.Story;
   readonly pid:       number;
   name:               string;
+  source:             string;
   abstractSyntaxTree: Array<TAbstractSyntaxContent>;
-  tags:               Array<TTag>;
-  position?:          [ number, number ];
+  tags:               Array<ITag>;
+  position:           [ number, number ];
   links:              Array<ILink>;
 
   constructor(
     pid:                number,
     name:               string,
+    source:             string,
     abstractSyntaxTree: Array<TAbstractSyntaxContent>,
-    tags:               Array<TTag>        = [],
+    tags:               Array<ITag>        = [],
     position:           [ number, number ] = [ -1, -1 ],
     links:              Array<ILink>       = [])
   {
@@ -71,6 +88,7 @@ export class StoryPassage implements IStoryPassage {
       type: 'story',
       pid,
       name,
+      source,
       abstractSyntaxTree,
       tags,
       position,
@@ -84,12 +102,13 @@ export class StoryPassage implements IStoryPassage {
       throw new Error(strings.UNKNOWN_CONSTRUCTION_ERROR);
     }
 
-    this.pid = pid;
-    this.name = name;
+    this.pid                = pid;
+    this.name               = name;
+    this.source             = source;
     this.abstractSyntaxTree = abstractSyntaxTree;
-    this.tags = tags;
-    this.position = position;
-    this.links = links;
+    this.tags               = tags;
+    this.position           = position;
+    this.links              = links;
   }
 
   static isValid(passage: any): true | Error {
@@ -102,30 +121,18 @@ export class StoryPassage implements IStoryPassage {
     {
       return new Error(strings.ABSTRACT_SYNTAX_TREE_INVALID);
     } else if (!Array.isArray(passage.tags)) {
-      throw new Error(strings.TAGS_INVALID);
-    } else if (passage.tags.filter((aa: TTag) => {
-      const isObject = typeof aa === 'object';
-      const isString = typeof aa === 'string';
-      const isTruthy = Boolean(aa);
-      return (isObject || isString) && isTruthy;
+      return new Error(strings.TAGS_INVALID);
+    } else if (passage.tags.filter((aa: ITag) => {
+      return isTag(aa);
     }).length !== passage.tags.length)
     {
-      throw new Error(strings.TAG_INVALID);
-    } else if (!Array.isArray(passage.position) ||
-      passage.position.length !== 2 ||
-      (passage.position.filter((aa: number) => {
-        return aa >= 0 && aa % 0 === 0;
-      }).length !== 2 && passage.position.filter((aa: number) => {
-        return aa === -1;
-      })).length !== 2)
-    {
-      throw new Error(strings.POSITION_INVALID);
+      return new Error(strings.TAG_INVALID);
+    } else if (!isPosition(passage.position)) {
+      return new Error(strings.POSITION_INVALID);
     } else if (!Array.isArray(passage.links)) {
       throw new Error(strings.LINKS_INVALID);
-    } else if (passage.links.filter((aa: TTag) => {
-      const isObject = typeof aa === 'object';
-      const isTruthy = Boolean(aa);
-      return isObject && isTruthy;
+    } else if (passage.links.filter((aa: ILink) => {
+      return isLink(aa);
     }).length !== passage.links.length)
     {
       throw new Error(strings.LINK_INVALID);
