@@ -1,9 +1,9 @@
 import {
   ComparatorWordSyntaxNodeSubtypes,
-} from './ComparatorWordSyntaxNodeSubtypes';
+} from '../ComparatorWordSyntaxNodeSubtypes';
 import {
   IComparatorWordSyntaxNode,
-} from './IComparatorWordSyntaxNode';
+} from '../IComparatorWordSyntaxNode';
 
 export interface IExactNonEqualityWordSyntaxNode extends IComparatorWordSyntaxNode {
   readonly subtype: ComparatorWordSyntaxNodeSubtypes.ExactNonEqualityWord;

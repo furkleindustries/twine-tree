@@ -16,25 +16,25 @@ import {
 
 export const strings = {
   SOURCE_INVALID:
-    'The source argument passed to the GreaterThanOrEqualWordSyntaxNode ' +
-    'constructor was neither "gte" nor ">=".',
+    'The source argument passed to the GreaterThanWordSyntaxNode ' +
+    'constructor was neither "gt" nor ">".',
 }
 
 export class GreaterThanWordSyntaxNode extends AbstractReservedWordSyntaxNode implements IGreaterThanWordSyntaxNode {
-  readonly subtype: ComparatorWordSyntaxNodeSubtypes.GreaterThanOrEqualWord;
-  readonly source:  'gte' | '>=';
+  readonly subtype: ComparatorWordSyntaxNodeSubtypes.GreaterThanWord;
+  readonly source:  'gt' | '>';
 
   constructor(
-    source:         'gte' | '>=',
+    source:         'gt' | '>',
     attributes:     THtmlElementAttributeSyntaxNodeMap = {},
     location:       ILocation | null = null)
   {
     super(source, attributes, location);
 
-    if (source !== 'gte' && source !== '>=') {
+    if (source !== 'gt' && source !== '>') {
       throw new Error(strings.SOURCE_INVALID);
     }
   }
 }
 
-export default GreaterThanOrEqualWordSyntaxNode;
+export default GreaterThanWordSyntaxNode;

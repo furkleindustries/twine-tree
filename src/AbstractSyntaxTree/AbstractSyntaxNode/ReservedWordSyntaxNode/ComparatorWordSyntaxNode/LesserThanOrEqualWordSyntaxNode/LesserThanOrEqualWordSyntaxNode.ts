@@ -17,7 +17,7 @@ import {
 export const strings = {
   SOURCE_INVALID:
     'The source argument passed to the LesserThanOrEqualWordSyntaxNode ' +
-    'constructor was neither "lt" nor "<".',
+    'constructor was neither "lte" nor "<=".',
 }
 
 export class LesserThanOrEqualWordSyntaxNode extends AbstractReservedWordSyntaxNode implements ILesserThanOrEqualWordSyntaxNode {

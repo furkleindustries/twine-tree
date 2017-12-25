@@ -14,3 +14,5 @@ export function isVariableSyntaxNode(maybe: any): maybe is IVariableSyntaxNode {
     (<any>maybe).name &&
     Object.values(VariableSyntaxNodeSubtypes).includes((<any>maybe).subtype);
 }
+
+export default isVariableSyntaxNode;

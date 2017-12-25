@@ -1,18 +1,18 @@
 import {
   AbstractReservedWordSyntaxNode,
-} from '../AbstractReservedWordSyntaxNode';
+} from '../../AbstractReservedWordSyntaxNode';
 import {
   AssignmentWordSyntaxNodeSubtypes,
-} from './AssignmentWordSyntaxNodeSubtypes';
+} from '../AssignmentWordSyntaxNodeSubtypes';
 import {
   IAssignmentModuloWordSyntaxNode,
 } from './IAssignmentModuloWordSyntaxNode';
 import {
   ILocation,
-} from '../../../ILocation';
+} from '../../../../ILocation';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from '../../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from '../../../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   SOURCE_INVALID:
