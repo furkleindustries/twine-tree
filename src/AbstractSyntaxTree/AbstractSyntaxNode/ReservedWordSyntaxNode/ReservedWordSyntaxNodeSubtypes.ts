@@ -7,11 +7,14 @@ import {
 import {
   ComparatorWordSyntaxNodeSubtypes,
 } from './ComparatorWordSyntaxNode/ComparatorWordSyntaxNodeSubtypes';
+import {
+  LastReferencedVariableWordSyntaxNodeSubtypes,
+} from './LastReferencedVariableWordSyntaxNode/LastReferencedVariableWordSyntaxNodeSubtypes';
 
 export type ReservedWordSyntaxNodeSubtypes =
     ArithmeticAndConcatenationWordSyntaxNodeSubtypes |
     AssignmentWordSyntaxNodeSubtypes |
     ComparatorWordSyntaxNodeSubtypes |
-    'lastReferencedVariableWord';
+    LastReferencedVariableWordSyntaxNodeSubtypes;
 
 export default ReservedWordSyntaxNodeSubtypes;
