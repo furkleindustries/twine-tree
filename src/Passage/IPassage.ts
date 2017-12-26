@@ -9,7 +9,7 @@ import {
 } from '../AbstractSyntaxTree/TAbstractSyntaxTree';
 import {
   PassageSubtypes,
-} from './PassageTypes';
+} from './PassageSubtypes';
 import {
   TPosition,
 } from '../Position/TPosition';

@@ -1,30 +1,33 @@
 import {
   IJavascriptImportLink,
-} from '../Link/JavascriptImportLink/IJavascriptImportLink';
+} from '../../Link/JavascriptImportLink/IJavascriptImportLink';
 import {
   IRequireLink,
-} from '../Link/RequireLink/IRequireLink';
-import {
-  isLink,
-} from '../Link/isLink';
-import {
-  isPosition,
-} from '../Position/isPosition';
-import {
-  isSize,
-} from '../Size/isSize';
-import {
-  isTag,
-} from '../Tag/isTag';
+} from '../../Link/RequireLink/IRequireLink';
 import {
   IScriptPassage,
 } from './IScriptPassage';
 import {
+  isLink,
+} from '../../Link/isLink';
+import {
+  isProgram,
+} from '../../AbstractSyntaxTree/isProgram';
+import {
+  isPosition,
+} from '../../Position/isPosition';
+import {
+  isSize,
+} from '../../Size/isSize';
+import {
+  isTag,
+} from '../../Tag/isTag';
+import {
   ITag,
-} from '../Tag/ITag';
+} from '../../Tag/ITag';
 import {
   PassageSubtypes,
-} from './PassageTypes';
+} from '../PassageSubtypes';
 import {
   Program,
 } from 'esprima';
@@ -33,10 +36,10 @@ import {
 } from './ScriptPassageDialects';
 import {
   TPosition,
-} from '../Position/TPosition';
+} from '../../Position/TPosition';
 import {
   TSize,
-} from '../Size/TSize';
+} from '../../Size/TSize';
 
 export const strings = {
   UNKNOWN_CONSTRUCTION_ERROR:
@@ -150,13 +153,11 @@ export class ScriptPassage implements IScriptPassage {
       return new Error(strings.PASSAGE_INVALID);
     } else if (passage.type !== 'passage') {
       return new Error(strings.TYPE_INVALID);
-    } else if (passage.subtype !== PassageSubtypes.Story) {
+    } else if (passage.subtype !== PassageSubtypes.Script) {
       return new Error(strings.SUBTYPE_INVALID);
     } else if (!(passage.pid > 0 && passage.pid % 1 === 0)) {
       return new Error(strings.PID_INVALID);
-    } else if (typeof passage.abstractSyntaxTree !== 'object' ||
-      !passage.abstractSyntaxTree)
-    {
+    } else if (!isProgram(passage.abstractSyntaxTree)) {
       return new Error(strings.ABSTRACT_SYNTAX_TREE_INVALID);
     } else if (!Array.isArray(passage.tags)) {
       return new Error(strings.TAGS_INVALID);

@@ -197,14 +197,27 @@ export * from './Link/isRuntimeReference';
 export * from './Link/LinkSubtypes';
 export * from './Link/TRuntimeReference';
 
+/* ScriptPassage */
+export * from './Passage/ScriptPassage/IScriptPassage';
+export * from './Passage/ScriptPassage/isScriptPassage';
+export { ScriptPassage } from './Passage/ScriptPassage/ScriptPassage';
+export * from './Passage/ScriptPassage/ScriptPassageDialects';
+
+/* StoryPassage */
+export * from './Passage/StoryPassage/isStoryPassage';
+export * from './Passage/StoryPassage/IStoryPassage';
+export { StoryPassage } from './Passage/StoryPassage/StoryPassage';
+
+/* StylePassage */
+export * from './Passage/StylePassage/isStylePassage';
+export * from './Passage/StylePassage/IStylePassage';
+export { StylePassage } from './Passage/StylePassage/StylePassage';
+export * from './Passage/StylePassage/StylePassageDialects';
+
 /* Passage */
 export * from './Passage/IPassage';
-export * from './Passage/IScriptPassage';
 export * from './Passage/isPassage';
-export * from './Passage/IStoryPassage';
-export * from './Passage/PassageTypes';
-export * from './Passage/ScriptPassageDialects';
-export { StoryPassage } from './Passage/StoryPassage';
+export * from './Passage/PassageSubtypes';
 
 /* Position */
 export * from './Position/isNonNullPosition';
@@ -228,3 +241,9 @@ export * from './Story/TUnknownVersion';
 
 /* Tag */
 export * from './Tag/IKeyValueTag';
+export * from './Tag/isKeyValueTag';
+export * from './Tag/isTag';
+export * from './Tag/ITag';
+export { KeyValueTag } from './Tag/KeyValueTag';
+export * from './Tag/TagSubtypes';
+export * from './Tag/ValueTag';
