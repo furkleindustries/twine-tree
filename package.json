@@ -38,7 +38,7 @@
   "devDependencies": {
     "@types/css": "0.0.31",
     "@types/esprima": "^4.0.1",
-    "@types/node": "^8.5.1",
+    "@types/node": "^8.5.2",
     "@types/semver": "^5.4.0",
     "babel-cli": "^6.26.0",
     "babel-env": "^2.4.1",
