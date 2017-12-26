@@ -8,9 +8,9 @@ import {
   LinkSubtypes,
 } from '../LinkSubtypes';
 
-export function isRequireImportLink(maybe: any): maybe is IRequireLink {
+export function isRequireLink(maybe: any): maybe is IRequireLink {
   return isLink(maybe) &&
     maybe.subtype === LinkSubtypes.Require;
 }
 
-export default isRequireImportLink;
+export default isRequireLink;

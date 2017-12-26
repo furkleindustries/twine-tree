@@ -2,7 +2,7 @@
   "name": "twine-tree",
   "main": "dist/es6.node/index.js",
   "types": "src/index.d.ts",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "An abstract representation of the Twine hypertext system, with interfaces, abstract classes, concrete classes, and type guards for every symbol/word used by a generic Twine programming language.",
   "scripts": {
     "build": "npm run build-node && npm run build-browser",

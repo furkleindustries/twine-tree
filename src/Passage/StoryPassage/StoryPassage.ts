@@ -1,39 +1,39 @@
 import {
   ILink,
-} from '../Link/ILink';
+} from '../../Link/ILink';
 import {
   isAbstractSyntaxContent,
-} from '../AbstractSyntaxTree/isAbstractSyntaxContent';
+} from '../../AbstractSyntaxTree/isAbstractSyntaxContent';
 import {
   isLink,
-} from '../Link/isLink';
+} from '../../Link/isLink';
 import {
   isPosition,
-} from '../Position/isPosition';
+} from '../../Position/isPosition';
 import {
   isSize,
-} from '../Size/isSize';
+} from '../../Size/isSize';
 import {
   isTag,
-} from '../Tag/isTag';
+} from '../../Tag/isTag';
 import {
   IStoryPassage,
 } from './IStoryPassage';
 import {
   ITag,
-} from '../Tag/ITag';
+} from '../../Tag/ITag';
 import {
   PassageSubtypes,
-} from './PassageTypes';
+} from '../PassageSubtypes';
 import {
   TAbstractSyntaxContent,
-} from '../AbstractSyntaxTree/TAbstractSyntaxContent';
+} from '../../AbstractSyntaxTree/TAbstractSyntaxContent';
 import {
   TPosition,
-} from '../Position/TPosition';
+} from '../../Position/TPosition';
 import {
   TSize,
-} from '../Size/TSize';
+} from '../../Size/TSize';
 
 export const strings = {
   UNKNOWN_CONSTRUCTION_ERROR:

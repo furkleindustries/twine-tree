@@ -1,21 +1,21 @@
 import {
   IPassage,
-} from './IPassage';
+} from '../IPassage';
 import {
   Program,
 } from 'estree';
 import {
   PassageSubtypes,
-} from './PassageTypes';
+} from '../PassageSubtypes';
 import {
   ScriptPassageDialects,
 } from './ScriptPassageDialects';
 import {
   IJavascriptImportLink,
-} from '../Link/JavascriptImportLink/IJavascriptImportLink';
+} from '../../Link/JavascriptImportLink/IJavascriptImportLink';
 import {
   IRequireLink,
-} from '../Link/RequireLink/IRequireLink';
+} from '../../Link/RequireLink/IRequireLink';
 
 export interface IScriptPassage extends IPassage {
   readonly subtype:            PassageSubtypes.Script;

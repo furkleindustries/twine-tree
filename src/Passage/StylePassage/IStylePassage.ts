@@ -1,12 +1,12 @@
 import {
   ICssImportLink,
-} from '../Link/CssImportLink/ICssImportLink';
+} from '../../Link/CssImportLink/ICssImportLink';
 import {
   IPassage,
-} from './IPassage';
+} from '../IPassage';
 import {
   PassageSubtypes,
-} from './PassageTypes';
+} from '../PassageSubtypes';
 import {
   StylePassageDialects,
 } from './StylePassageDialects';
