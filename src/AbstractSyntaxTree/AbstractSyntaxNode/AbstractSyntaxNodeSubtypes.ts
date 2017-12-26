@@ -3,7 +3,7 @@ import {
 } from './ArgumentSyntaxNode/ArgumentSyntaxNodeSubtypes';
 import {
   HtmlElementSyntaxNodeSubtypes,
-} from './HtmlElementSyntaxNode/HtmlElementSyntaxNode/HtmlElementSyntaxNodeSubtypes';
+} from './HtmlSyntaxNode/HtmlElementSyntaxNode/HtmlElementSyntaxNodeSubtypes';
 import {
   InvocationBodySyntaxNodeSubtypes,
 } from './InvocationBodySyntaxNode/InvocationBodySyntaxNodeSubtypes';

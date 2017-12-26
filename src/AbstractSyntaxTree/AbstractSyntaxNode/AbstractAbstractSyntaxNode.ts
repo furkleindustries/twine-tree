@@ -8,17 +8,17 @@ import {
   IAbstractSyntaxNode,
 } from './IAbstractSyntaxNode';
 import {
-  ILocation,
-} from '../ILocation';
+  ISourceLocation,
+} from '../SourceLocation/ISourceLocation';
 import {
   isHtmlAttributeSyntaxNodeMap,
-} from './HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/isHtmlAttributeSyntaxNodeMap';
+} from './HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/isHtmlAttributeSyntaxNodeMap';
 import {
-  isLocation,
-} from '../isLocation';
+  isSourceLocation,
+} from '../SourceLocation/isSourceLocation';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from './HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from './HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   ATTRIBUTES_INVALID:
@@ -31,19 +31,19 @@ export const strings = {
 
 export abstract class AbstractAbstractSyntaxNode implements IAbstractSyntaxNode {
   readonly type:       AbstractSyntaxNodeTypes;
-  readonly subtype?:   AbstractSyntaxNodeSubtypes;
+  readonly subtype:    AbstractSyntaxNodeSubtypes;
   readonly attributes: THtmlElementAttributeSyntaxNodeMap;
-  readonly location:   ILocation | null;
+  readonly location:   ISourceLocation | null;
 
   constructor(
     attributes:        THtmlElementAttributeSyntaxNodeMap = {},
-    location:          ILocation | null = null)
+    location:          ISourceLocation | null = null)
   {
     if (!isHtmlAttributeSyntaxNodeMap(attributes)) {
       throw new Error(strings.ATTRIBUTES_INVALID);
     } else if (arguments.length >= 2 &&
       location !== null &&
-      !isLocation(location))
+      !isSourceLocation(location))
     {
       throw new Error(strings.LOCATION_INVALID);
     }

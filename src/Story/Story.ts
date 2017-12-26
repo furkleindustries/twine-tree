@@ -19,9 +19,7 @@ import {
 import {
   TUnknownVersion,
 } from './TUnknownVersion';
-import {
-  unknownVersion,
-} from './unknownVersion';
+import isUnknownVersion from './isUnknownVersion';
 
 export const strings = {
   UNKNOWN_CONSTRUCTION_ERROR:
@@ -70,7 +68,7 @@ export const strings = {
 };
 
 export class Story implements IStory {
-  name:             string;
+  readonly name:    string;
   startNode:        number;
   creator:          string;
   creatorVersion:   SemVer | TUnknownVersion;
@@ -127,7 +125,7 @@ export class Story implements IStory {
     } else if (typeof story.creator !== 'string' || !story.creator) {
       return new Error(strings.CREATOR_INVALID);
     } else if (!(story.creatorVersion instanceof SemVer) &&
-      story.creatorVersion !== unknownVersion)
+      !isUnknownVersion(story.version))
     {
       return new Error(strings.CREATOR_VERSION_INVALID);
     } else if (!isIFID(story.creatorVersion)) {

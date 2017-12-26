@@ -2,14 +2,14 @@ import {
   AbstractAbstractSyntaxNode,
 } from '../AbstractAbstractSyntaxNode';
 import {
-  ILocation,
-} from '../../ILocation';
+  ISourceLocation,
+} from '../../SourceLocation/ISourceLocation';
 import {
   IVariableSyntaxNode,
 } from './IVariableSyntaxNode';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from '../HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 import {
   VariableSyntaxNodeSubtypes,
 } from './VariableSyntaxNodeSubtypes';
@@ -32,7 +32,7 @@ export class VariableSyntaxNode extends AbstractAbstractSyntaxNode implements IV
     name:           string,
     subtype:        VariableSyntaxNodeSubtypes,
     attributes:     THtmlElementAttributeSyntaxNodeMap,
-    location:       ILocation | null)
+    location:       ISourceLocation | null)
   {
     super(attributes, location);
 

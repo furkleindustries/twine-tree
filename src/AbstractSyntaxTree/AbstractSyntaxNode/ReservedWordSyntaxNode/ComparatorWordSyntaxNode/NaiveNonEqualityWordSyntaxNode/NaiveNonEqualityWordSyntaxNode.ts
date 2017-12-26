@@ -5,14 +5,14 @@ import {
   ComparatorWordSyntaxNodeSubtypes,
 } from '../ComparatorWordSyntaxNodeSubtypes';
 import {
-  ILocation,
-} from '../../../../ILocation';
+  ISourceLocation,
+} from '../../../../SourceLocation/ISourceLocation';
 import {
   INaiveNonEqualityWordSyntaxNode,
 } from './INaiveNonEqualityWordSyntaxNode';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from '../../../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from '../../../HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   SOURCE_INVALID:
@@ -27,7 +27,7 @@ export class NaiveNonEqualityWordSyntaxNode extends AbstractReservedWordSyntaxNo
   constructor(
     source:         'neq' | '!=',
     attributes:     THtmlElementAttributeSyntaxNodeMap = {},
-    location:       ILocation | null = null)
+    location:       ISourceLocation | null = null)
   {
     super(source, attributes, location);
 

@@ -8,7 +8,7 @@ import {
   TAbstractSyntaxTree,
 } from '../AbstractSyntaxTree/TAbstractSyntaxTree';
 import {
-  PassageTypes,
+  PassageSubtypes,
 } from './PassageTypes';
 import {
   TPosition,
@@ -18,15 +18,16 @@ import {
 } from '../Size/TSize';
 
 export interface IPassage {
-  type:               PassageTypes;
-  pid:                number;
-  name:               string;
-  abstractSyntaxTree: TAbstractSyntaxTree;
-  position?:          TPosition;
-  size?:              TSize;
-  tags:               Array<ITag>;
-  links:              Array<ILink>;
-  source:             string;
+  readonly type:               'passage';
+  readonly subtype:            PassageSubtypes;
+  readonly pid:                number;
+  readonly name:               string;
+  readonly abstractSyntaxTree: TAbstractSyntaxTree;
+  readonly position:           TPosition;
+  readonly size:               TSize;
+  readonly tags:               Array<ITag>;
+  readonly links:              Array<ILink>;
+  readonly source:             string;
 }
 
 export default IPassage;

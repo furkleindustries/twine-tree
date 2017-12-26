@@ -1,10 +1,10 @@
 export enum AssignmentWordSyntaxNodeSubtypes {
-  AssignmentAdderWord      = 'assignmentAdderWord',
-  AssignmentDividerWord    = 'assignmentDividerWord',
-  AssignmentModuloWord     = 'assignmentModuloWord',
-  AssignmentMultiplierWord  = 'assignmentMultiplierWord',
-  AssignmentSubtractorWord = 'assignmentSubtractorWord',
-  AssignmentWord           = 'assignmentWord',
+  AssignmentAdditionWord       = 'assignmentAdditionWord',
+  AssignmentDivisionWord       = 'assignmentDivisionWord',
+  AssignmentModuloWord         = 'assignmentModuloWord',
+  AssignmentMultiplicationWord = 'assignmentMultiplicationWord',
+  AssignmentSubtractionWord    = 'assignmentSubtractionWord',
+  AssignmentWord               = 'assignmentWord',
 }
 
 export default AssignmentWordSyntaxNodeSubtypes;

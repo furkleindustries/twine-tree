@@ -1,3 +1,3 @@
-export type TRunTimeReference = 'tw-runtime-reference';
+export type TRuntimeReference = 'tw-runtime-reference';
 
-export default TRunTimeReference;
+export default TRuntimeReference;

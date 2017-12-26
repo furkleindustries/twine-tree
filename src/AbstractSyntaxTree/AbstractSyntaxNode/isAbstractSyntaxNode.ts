@@ -6,17 +6,17 @@ import {
 } from './IAbstractSyntaxNode';
 import {
   isHtmlAttributeSyntaxNodeMap,
-} from './HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/isHtmlAttributeSyntaxNodeMap';
+} from './HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/isHtmlAttributeSyntaxNodeMap';
 import {
-  isLocation,
-} from '../isLocation';
+  isSourceLocation,
+} from '../SourceLocation/isSourceLocation';
 
 export function isAbstractSyntaxNode(maybe: any): maybe is IAbstractSyntaxNode {
   return typeof maybe === 'object' &&
     maybe &&
     Object.values(AbstractSyntaxNodeTypes).includes(maybe.type) &&
     isHtmlAttributeSyntaxNodeMap(maybe.attributes) &&
-    (maybe.location === null || isLocation(maybe.location));
+    (maybe.location === null || isSourceLocation(maybe.location));
 }
 
 export default isAbstractSyntaxNode;

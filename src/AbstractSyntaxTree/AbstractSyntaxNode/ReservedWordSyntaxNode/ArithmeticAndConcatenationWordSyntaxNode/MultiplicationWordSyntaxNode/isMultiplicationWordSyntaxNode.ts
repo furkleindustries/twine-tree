@@ -8,7 +8,7 @@ import {
   isArithmeticAndConcatenationWordSyntaxNode,
 } from '../isArithmeticAndConcatenationWordSyntaxNode';
 
-export function isModuloWordSyntaxNode(maybe: any): maybe is IMultiplicationWordSyntaxNode {
+export function isMultiplicationWordSyntaxNode(maybe: any): maybe is IMultiplicationWordSyntaxNode {
   return isArithmeticAndConcatenationWordSyntaxNode(maybe) &&
     maybe.subtype === subtypes.MultiplicationWord &&
     (maybe.source === 'times' ||
@@ -17,4 +17,4 @@ export function isModuloWordSyntaxNode(maybe: any): maybe is IMultiplicationWord
       maybe.source === '*');
 }
 
-export default isModuloWordSyntaxNode;
+export default isMultiplicationWordSyntaxNode;

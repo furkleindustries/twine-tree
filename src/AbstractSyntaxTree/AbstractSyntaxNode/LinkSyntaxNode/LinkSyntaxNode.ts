@@ -11,17 +11,17 @@ import {
   ILinkSyntaxNode,
 } from './ILinkSyntaxNode';
 import {
-  ILocation,
-} from '../../ILocation';
-import {
   isAbstractSyntaxContent,
 } from '../../isAbstractSyntaxContent';
+import {
+  ISourceLocation,
+} from '../../SourceLocation/ISourceLocation';
 import {
   TAbstractSyntaxContent,
 } from '../../TAbstractSyntaxContent';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from '../HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   NAME_INVALID:
@@ -57,7 +57,7 @@ export abstract class LinkSyntaxNode extends AbstractAbstractSyntaxNode implemen
     subtype:            LinkSyntaxNodeSubtypes,
     children:           Array<TAbstractSyntaxContent>,
     attributes:         THtmlElementAttributeSyntaxNodeMap = {},
-    location:           ILocation | null = null)
+    location:           ISourceLocation | null = null)
   {
     super(attributes, location);
 

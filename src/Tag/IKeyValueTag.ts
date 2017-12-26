@@ -1,11 +1,13 @@
 import {
   ITag,
 } from './ITag';
+import {
+  TagSubtypes,
+} from './TagSubtypes';
 
 export interface IKeyValueTag extends ITag {
-  readonly subtype: 'keyValueTag';
+  readonly subtype: TagSubtypes.KeyValueTag;
   readonly key:     string;
-  readonly value:   string;
 }
 
 export default IKeyValueTag;

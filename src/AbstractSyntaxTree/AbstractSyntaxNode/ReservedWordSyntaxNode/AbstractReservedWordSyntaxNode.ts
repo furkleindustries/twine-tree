@@ -5,17 +5,17 @@ import {
   AbstractSyntaxNodeTypes,
 } from '../AbstractSyntaxNodeTypes';
 import {
-  ILocation,
-} from '../../ILocation';
-import {
   IReservedWordSyntaxNode,
 } from './IReservedWordSyntaxNode';
+import {
+  ISourceLocation,
+} from '../../SourceLocation/ISourceLocation';
 import {
   ReservedWordSyntaxNodeSubtypes,
 } from './ReservedWordSyntaxNodeSubtypes';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from '../HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   SOURCE_INVALID:
@@ -31,7 +31,7 @@ export abstract class AbstractReservedWordSyntaxNode extends AbstractAbstractSyn
   constructor(
     source:         string,
     attributes:     THtmlElementAttributeSyntaxNodeMap = {},
-    location:       ILocation | null = null)
+    location:       ISourceLocation | null = null)
   {
     super(attributes, location);
 
