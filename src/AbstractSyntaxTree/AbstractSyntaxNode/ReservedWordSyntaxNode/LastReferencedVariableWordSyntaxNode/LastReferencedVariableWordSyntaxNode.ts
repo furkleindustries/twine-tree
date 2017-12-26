@@ -5,14 +5,14 @@ import {
   ILastReferencedVariableWordSyntaxNode,
 } from './ILastReferencedVariableWordSyntaxNode';
 import {
-  ILocation,
-} from '../../../ILocation';
+  ISourceLocation,
+} from '../../../SourceLocation/ISourceLocation';
 import {
   LastReferencedVariableWordSyntaxNodeSubtypes,
 } from './LastReferencedVariableWordSyntaxNodeSubtypes';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from '../../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from '../../HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export class LastReferencedVariableWordSyntaxNode extends AbstractReservedWordSyntaxNode implements ILastReferencedVariableWordSyntaxNode {
   readonly subtype: LastReferencedVariableWordSyntaxNodeSubtypes =
@@ -22,7 +22,7 @@ export class LastReferencedVariableWordSyntaxNode extends AbstractReservedWordSy
 
   constructor(
     attributes: THtmlElementAttributeSyntaxNodeMap = {},
-    location:   ILocation | null)
+    location:   ISourceLocation | null)
   {
     super('it', attributes, location);
   }

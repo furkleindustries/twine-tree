@@ -2,16 +2,17 @@ import {
   IPassage,
 } from '../Passage/IPassage';
 import {
-  LinkTypes,
-} from './LinkTypes';
+  LinkSubtypes,
+} from './LinkSubtypes';
 import {
-  TRunTimeReference,
-} from './TRunTimeReference';
+  TRuntimeReference,
+} from './TRuntimeReference';
 
 export interface ILink {
-  type: LinkTypes;
-  from: IPassage;
-  to:   IPassage | TRunTimeReference;
+  type:    'link';
+  subtype: LinkSubtypes;
+  from:    IPassage;
+  to:      IPassage | TRuntimeReference;
 }
 
 export default ILink;

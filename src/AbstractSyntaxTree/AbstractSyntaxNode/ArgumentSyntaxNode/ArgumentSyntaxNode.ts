@@ -11,17 +11,17 @@ import {
   IArgumentSyntaxNode,
 } from './IArgumentSyntaxNode';
 import {
-  ILocation,
-} from '../../ILocation';
-import {
   isAbstractSyntaxContent,
 } from '../../isAbstractSyntaxContent';
+import {
+  ISourceLocation,
+} from '../../SourceLocation/ISourceLocation';
 import {
   TAbstractSyntaxContent,
 } from '../../TAbstractSyntaxContent';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from '../HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   VALUE_INVALID:
@@ -37,7 +37,7 @@ export abstract class ArgumentSyntaxNode extends AbstractAbstractSyntaxNode impl
   constructor(
     value:          TAbstractSyntaxContent,
     attributes:     THtmlElementAttributeSyntaxNodeMap = {},
-    location:       ILocation | null = null)
+    location:       ISourceLocation | null = null)
   {
     super(attributes, location);
 

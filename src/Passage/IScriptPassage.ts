@@ -5,16 +5,23 @@ import {
   Program,
 } from 'estree';
 import {
-  PassageTypes,
+  PassageSubtypes,
 } from './PassageTypes';
 import {
-  ScriptPassageSubtypes,
-} from './ScriptPassageSubtypes';
+  ScriptPassageDialects,
+} from './ScriptPassageDialects';
+import {
+  IJavascriptImportLink,
+} from '../Link/JavascriptImportLink/IJavascriptImportLink';
+import {
+  IRequireLink,
+} from '../Link/RequireLink/IRequireLink';
 
 export interface IScriptPassage extends IPassage {
-  type:               PassageTypes.Script;
-  subtype:            ScriptPassageSubtypes;
-  abstractSyntaxTree: Program;
+  readonly subtype:            PassageSubtypes.Script;
+  readonly dialect:            ScriptPassageDialects;
+  readonly abstractSyntaxTree: Program;
+  readonly links:              Array<IJavascriptImportLink | IRequireLink>;
 }
 
 export default IScriptPassage;

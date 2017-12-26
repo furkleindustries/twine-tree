@@ -5,15 +5,19 @@ import {
   isPassage,
 } from '../Passage/isPassage';
 import {
-  LinkTypes,
-} from './LinkTypes';
+  isRuntimeReference,
+} from './isRuntimeReference';
+import {
+  LinkSubtypes,
+} from './LinkSubtypes';
 
 export function isLink(maybe: any): maybe is ILink {
   return typeof maybe === 'object' &&
     maybe &&
-    Object.values(LinkTypes).includes(maybe.type) &&
+    maybe.type === 'link' &&
+    Object.values(LinkSubtypes).includes(maybe.subtype) &&
     isPassage(maybe.from) &&
-    (isPassage(maybe.to) || maybe.to === 'tw-runtime-reference');
+    (isRuntimeReference(maybe.to) || isPassage(maybe.to));
 }
 
 export default isLink;

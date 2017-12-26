@@ -1,7 +1,7 @@
-export enum PassageTypes {
-  Story = 'story',
+export enum PassageSubtypes {
+  Story  = 'story',
   Script = 'script',
-  Style = 'style'
+  Style  = 'style'
 }
 
-export default PassageTypes;
+export default PassageSubtypes;

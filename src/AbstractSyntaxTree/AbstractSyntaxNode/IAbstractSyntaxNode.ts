@@ -5,17 +5,17 @@ import {
   AbstractSyntaxNodeTypes,
 } from './AbstractSyntaxNodeTypes';
 import {
-  ILocation,
-} from '../ILocation';
+  ISourceLocation,
+} from '../SourceLocation/ISourceLocation';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from './HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from './HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export interface IAbstractSyntaxNode {
   readonly type:       AbstractSyntaxNodeTypes;
-  readonly subtype?:   AbstractSyntaxNodeSubtypes;
+  readonly subtype:    AbstractSyntaxNodeSubtypes;
   readonly attributes: THtmlElementAttributeSyntaxNodeMap;
-  readonly location:   ILocation | null;
+  readonly location:   ISourceLocation | null;
 }
 
 export default IAbstractSyntaxNode;

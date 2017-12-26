@@ -11,11 +11,11 @@ import {
   INumberSyntaxNode,
 } from './INumberSyntaxNode';
 import {
-  ILocation,
-} from '../../ILocation';
+  ISourceLocation,
+} from '../../SourceLocation/ISourceLocation';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from '../HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   VALUE_INVALID:
@@ -36,7 +36,7 @@ export abstract class NumberSyntaxNode extends AbstractAbstractSyntaxNode implem
     value:          number,
     subtype:        NumberSyntaxNodeSubtypes,
     attributes:     THtmlElementAttributeSyntaxNodeMap = {},
-    location:       ILocation | null = null)
+    location:       ISourceLocation | null = null)
   {
     super(attributes, location);
 

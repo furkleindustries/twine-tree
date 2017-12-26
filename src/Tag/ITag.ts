@@ -1,6 +1,11 @@
+import {
+  TagSubtypes,
+} from './TagSubtypes';
+
 export interface ITag {
-  type:  'tag';
-  value: string;
+  readonly type:    'tag';
+  readonly subtype: TagSubtypes;
+  readonly value:   string;
 }
 
 export default ITag;

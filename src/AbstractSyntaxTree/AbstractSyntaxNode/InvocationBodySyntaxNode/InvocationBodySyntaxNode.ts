@@ -11,17 +11,17 @@ import {
   IInvocationBodySyntaxNode,
 } from './IInvocationBodySyntaxNode';
 import {
-  ILocation,
-} from '../../ILocation';
-import {
   isAbstractSyntaxContent,
 } from '../../isAbstractSyntaxContent';
+import {
+  ISourceLocation,
+} from '../../SourceLocation/ISourceLocation';
 import {
   TAbstractSyntaxContent,
 } from '../../TAbstractSyntaxContent';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from '../HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   SUBTYPE_INVALID:
@@ -54,7 +54,7 @@ export abstract class InvocationBodySyntaxNode extends AbstractAbstractSyntaxNod
     children:        Array<TAbstractSyntaxContent>,
     source:          string,
     attributes:      THtmlElementAttributeSyntaxNodeMap = {},
-    location:        ILocation | null = null)
+    location:        ISourceLocation | null = null)
   {
     super(attributes, location);
 

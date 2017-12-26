@@ -8,11 +8,11 @@ import {
   IAssignmentModuloWordSyntaxNode,
 } from './IAssignmentModuloWordSyntaxNode';
 import {
-  ILocation,
-} from '../../../../ILocation';
+  ISourceLocation,
+} from '../../../../SourceLocation/ISourceLocation';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from '../../../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
+} from '../../../HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   SOURCE_INVALID:
@@ -27,7 +27,7 @@ export class AssignmentModuloWordSyntaxNode extends AbstractReservedWordSyntaxNo
   constructor(
     source:         'moduloequals' | 'modulo-equals' | '%=',
     attributes:     THtmlElementAttributeSyntaxNodeMap = {},
-    location:       ILocation | null = null)
+    location:       ISourceLocation | null = null)
   {
     super(source, attributes, location);
 

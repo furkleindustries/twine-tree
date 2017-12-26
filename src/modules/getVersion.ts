@@ -4,9 +4,6 @@ import {
 import {
   TUnknownVersion,
 } from '../Story/TUnknownVersion';
-import {
-  unknownVersion,
-} from '../Story/unknownVersion';
 
 let version: SemVer;
 export function getVersion(): SemVer | TUnknownVersion {
@@ -19,7 +16,7 @@ export function getVersion(): SemVer | TUnknownVersion {
     version = new SemVer(v);
     return version;
   } catch (e) {
-    return unknownVersion;
+    return 'tw-unknown-version';
   }
 }
 

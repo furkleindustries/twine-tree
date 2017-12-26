@@ -5,6 +5,9 @@ import {
   AbstractSyntaxNodeTypes,
 } from '../AbstractSyntaxNodeTypes';
 import {
+  IArgumentSyntaxNode,
+} from '../ArgumentSyntaxNode/IArgumentSyntaxNode';
+import {
   IInvocationBodySyntaxNode,
 } from '../InvocationBodySyntaxNode/IInvocationBodySyntaxNode';
 import {
@@ -14,8 +17,8 @@ import {
   IInvocationSyntaxNode,
 } from './IInvocationSyntaxNode';
 import {
-  ILocation,
-} from '../../ILocation';
+  ISourceLocation,
+} from '../../SourceLocation/ISourceLocation';
 import {
   isArgumentSyntaxNode,
 } from '../ArgumentSyntaxNode/isArgumentSyntaxNode';
@@ -24,8 +27,7 @@ import {
 } from '../InvocationBodySyntaxNode/isInvocationBodySyntaxNode';
 import {
   THtmlElementAttributeSyntaxNodeMap,
-} from '../HtmlElementSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
-import IArgumentSyntaxNode from '../ArgumentSyntaxNode/IArgumentSyntaxNode';
+} from '../HtmlSyntaxNode/HtmlElementAttributeSyntaxNode/THtmlElementAttributeSyntaxNodeMap';
 
 export const strings = {
   NAME_INVALID:
@@ -47,7 +49,7 @@ export const strings = {
 
   BODY_INVALID:
     'The body argument passed to the InvocationSyntaxNode constructor did ' +
-    'not meet the isInvocationBodySyntaxNode typeguard.',
+    'not meet the isInvocationBodySyntaxNode type guard.',
 };
 
 export abstract class InvocationSyntaxNode extends AbstractAbstractSyntaxNode implements IInvocationSyntaxNode {
@@ -63,7 +65,7 @@ export abstract class InvocationSyntaxNode extends AbstractAbstractSyntaxNode im
     args:             Array<IArgumentSyntaxNode> = [],
     body:             IInvocationBodySyntaxNode | null = null,
     attributes:       THtmlElementAttributeSyntaxNodeMap = {},
-    location:         ILocation | null = null)
+    location:         ISourceLocation | null = null)
   {
     super(attributes, location);
 
